@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Pages Portfolio - Modern Web Design</title>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: #1a1a1a;
+      min-height: 100vh;
+      padding: 4rem 2rem;
+    }
+    
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+    
+    .header h1 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: #0a0a0a;
+      letter-spacing: -0.03em;
+    }
+    
+    .header p {
+      font-size: 1.25rem;
+      color: #666;
+      max-width: 600px;
+      margin: 0 auto;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    
+    /* 2x2 Professional Grid */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+    
+    .page-card {
+      background: #ffffff;
+      border: 1px solid #e5e5e5;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .page-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      border-color: #d0d0d0;
+    }
+    
+    .page-header {
+      padding: 3rem;
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-bottom: 1px solid #e5e5e5;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .page-card:nth-child(1) .page-header {
+      background: linear-gradient(135deg, #fdf2f8, #ffffff);
+    }
+    
+    .page-card:nth-child(2) .page-header {
+      background: linear-gradient(135deg, #f0fdf4, #ffffff);
+    }
+    
+    .page-card:nth-child(3) .page-header {
+      background: linear-gradient(135deg, #fef3c7, #ffffff);
+    }
+    
+    .page-card:nth-child(4) .page-header {
+      background: linear-gradient(135deg, #dbeafe, #ffffff);
+    }
+    
+    .page-icon {
+      width: 80px;
+      height: 80px;
+      background: #0a0a0a;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .page-icon svg {
+      width: 40px;
+      height: 40px;
+      stroke-width: 2px;
+    }
+
+    .page-card:nth-child(1) .page-icon {
+      background: linear-gradient(135deg, #ec4899, #a855f7);
+    }
+    
+    .page-card:nth-child(2) .page-icon {
+      background: linear-gradient(135deg, #10b981, #3b82f6);
+    }
+    
+    .page-card:nth-child(3) .page-icon {
+      background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+    
+    .page-card:nth-child(4) .page-icon {
+      background: linear-gradient(135deg, #ff6b35, #00d9ff);
+    }
+    
+    .page-number {
+      width: 60px;
+      height: 60px;
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #0a0a0a;
+    }
+    
+    .page-body {
+      padding: 2.5rem;
+    }
+    
+    .page-card h3 {
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+      color: #0a0a0a;
+      letter-spacing: -0.02em;
+    }
+    
+    .page-card p {
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+    
+    .page-tags {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    
+    .tag {
+      padding: 0.5rem 1.25rem;
+      background: #f5f5f5;
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+    }
+    
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      padding: 1.25rem 2.5rem;
+      background: #0a0a0a;
+      color: white;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      width: 100%;
+      font-size: 1rem;
+    }
+    
+    .btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    .btn:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+    
+    /* Footer */
+    .footer {
+      text-align: center;
+      margin-top: 5rem;
+      padding-top: 3rem;
+      border-top: 1px solid #e5e5e5;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      color: #666;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: #0a0a0a;
+    }
+    
+    .footer p {
+      color: #999;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .pages-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      body {
+        padding: 3rem 1.5rem;
+      }
+      
+      .header {
+        margin-bottom: 3rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page-header {
+        padding: 2rem;
+      }
+      
+      .page-body {
+        padding: 1.5rem;
+      }
+
+      .page-card h3 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Landing Pages Collection</h1>
+      <p>Professional landing page designs for modern businesses. Click any card to explore the full page.</p>
+    </div>
+    
+    <div class="pages-grid">
+      <!-- Page 1: Aurora -->
+      <a href="pages/index1.html" class="page-card">
+        <div class="page-header">
+          <div class="page-icon">
+            <i data-lucide="rocket"></i>
+          </div>
+          <div class="page-number">01</div>
+        </div>
+        <div class="page-body">
+          <h3>Aurora</h3>
+          <p>AI-Powered Digital Marketing Platform featuring comprehensive pricing plans, customer testimonials, and modern design elements.</p>
+          <div class="page-tags">
+            <span class="tag">AI Marketing</span>
+            <span class="tag">SaaS</span>
+            <span class="tag">Pricing</span>
+          </div>
+          <span class="btn">
+            View Page
+            <i data-lucide="arrow-right"></i>
+          </span>
+        </div>
+      </a>
+      
+      <!-- Page 2: NexusFlow -->
+      <a href="pages/index2.html" class="page-card">
+        <div class="page-header">
+          <div class="page-icon">
+            <i data-lucide="network"></i>
+          </div>
+          <div class="page-number">02</div>
+        </div>
+        <div class="page-body">
+          <h3>NexusFlow</h3>
+          <p>AI-Powered Workflow Automation Platform designed to streamline business processes and enhance team productivity.</p>
+          <div class="page-tags">
+            <span class="tag">Automation</span>
+            <span class="tag">Workflow</span>
+            <span class="tag">Enterprise</span>
+          </div>
+          <span class="btn">
+            View Page
+            <i data-lucide="arrow-right"></i>
+          </span>
+        </div>
+      </a>
+      
+      <!-- Page 3: PixelForge -->
+      <a href="pages/index3.html" class="page-card">
+        <div class="page-header">
+          <div class="page-icon">
+            <i data-lucide="palette"></i>
+          </div>
+          <div class="page-number">03</div>
+        </div>
+        <div class="page-body">
+          <h3>PixelForge</h3>
+          <p>AI-Powered Creative Design Platform enabling designers and teams to generate professional visuals with intelligent assistance.</p>
+          <div class="page-tags">
+            <span class="tag">Design</span>
+            <span class="tag">Creative</span>
+            <span class="tag">AI Tools</span>
+          </div>
+          <span class="btn">
+            View Page
+            <i data-lucide="arrow-right"></i>
+          </span>
+        </div>
+      </a>
+      
+      <!-- Page 4: Faiz Digital -->
+      <a href="pages/index4.html" class="page-card">
+        <div class="page-header">
+          <div class="page-icon">
+            <i data-lucide="megaphone"></i>
+          </div>
+          <div class="page-number">04</div>
+        </div>
+        <div class="page-body">
+          <h3>Faiz Digital</h3>
+          <p>Full-Service Digital Marketing Agency specializing in Meta Ads, SEO optimization, Google Ads, and Telegram growth strategies.</p>
+          <div class="page-tags">
+            <span class="tag">Agency</span>
+            <span class="tag">SEO</span>
+            <span class="tag">Digital Marketing</span>
+          </div>
+          <span class="btn">
+            View Page
+            <i data-lucide="arrow-right"></i>
+          </span>
+        </div>
+      </a>
+    </div>
+    
+    <div class="footer">
+      <div class="footer-links">
+        <a href="pages/landing.html">Landing Info</a>
+        <a href="pages/login.html">Login</a>
+        <a href="pages/signup.html">Sign Up</a>
+      </div>
+      <p>© 2025 Landing Pages Collection. All rights reserved.</p>
+    </div>
+  </div>
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1860 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PixelForge - AI-Powered Creative Design Platform</title>
+  <meta name="description"
+    content="Transform ideas into stunning designs instantly with AI. PixelForge helps creators design 10x faster with intelligent tools, templates, and real-time collaboration.">
+
+  <!-- Font Awesome -->
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --orange: #FF6B35;
+      --coral: #FF8B6A;
+      --cyan: #00D9FF;
+      --purple: #A259FF;
+      --violet: #7B2FFF;
+      --yellow: #FFD60A;
+      --pink: #FF006E;
+      --mint: #00FFA3;
+      --bg-light: #FDFCF9;
+      --bg-cream: #FFF8F0;
+      --bg-white: #FFFFFF;
+      --text-dark: #1A1A1A;
+      --text-gray: #666666;
+      --border: #E8E4DC;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(253, 252, 249, 0.95);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    header.scrolled {
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    nav {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .logo i {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-dark);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      position: relative;
+      letter-spacing: -0.01em;
+    }
+
+    .nav-links a:hover {
+      color: var(--orange);
+      transform: translateY(-2px);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 16px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 0.95rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(255, 107, 53, 0.45);
+    }
+
+    .btn-secondary {
+      background: var(--text-dark);
+      color: white;
+    }
+
+    .btn-secondary:hover {
+      background: var(--orange);
+      transform: translateY(-3px);
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--text-dark);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 10rem 2rem 6rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      right: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(255, 107, 53, 0.15), transparent 70%);
+      border-radius: 50%;
+      filter: blur(80px);
+      z-index: -1;
+    }
+
+    .hero-content h1 {
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
+      margin-bottom: 2rem;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--pink) 50%, var(--purple) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+    }
+
+    .hero-content p {
+      font-size: 1.35rem;
+      color: var(--text-gray);
+      margin-bottom: 3rem;
+      line-height: 1.7;
+      max-width: 580px;
+      font-weight: 500;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin-bottom: 4rem;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0;
+      border-top: 3px solid var(--orange);
+    }
+
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.02em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      color: var(--text-gray);
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .hero-visual {
+      position: relative;
+      perspective: 1200px;
+    }
+
+    .mockup-3d {
+      position: relative;
+      transform-style: preserve-3d;
+      animation: float 8s ease-in-out infinite;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotateY(-2deg);
+      }
+
+      50% {
+        transform: translateY(-25px) rotateY(2deg);
+      }
+    }
+
+    .mockup-card {
+      background: white;
+      border-radius: 32px;
+      padding: 2.5rem;
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+      border: 2px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mockup-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: linear-gradient(90deg, var(--orange), var(--pink), var(--purple));
+    }
+
+    .mockup-card img {
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    .floating-shape {
+      position: absolute;
+      animation: floatShape 10s ease-in-out infinite;
+    }
+
+    @keyframes floatShape {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      33% {
+        transform: translate(15px, -15px) rotate(5deg);
+      }
+
+      66% {
+        transform: translate(-10px, 10px) rotate(-5deg);
+      }
+    }
+
+    .shape-1 {
+      top: 5%;
+      right: -8%;
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+      opacity: 0.7;
+    }
+
+    .shape-2 {
+      bottom: 15%;
+      left: -8%;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, var(--yellow), var(--orange));
+      border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%;
+      opacity: 0.6;
+      animation-delay: -3s;
+    }
+
+    .shape-3 {
+      top: 40%;
+      right: -5%;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--mint), var(--cyan));
+      border-radius: 50%;
+      opacity: 0.5;
+      animation-delay: -6s;
+    }
+
+    /* Sections */
+    section {
+      padding: 8rem 2rem;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 5rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+    }
+
+    h2 {
+      font-size: clamp(2.75rem, 5vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-subtitle {
+      font-size: 1.35rem;
+      color: var(--text-gray);
+      max-width: 750px;
+      margin: 0 auto;
+      font-weight: 500;
+      line-height: 1.7;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 32px;
+      padding: 3rem;
+      border: 2px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 340px;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 6px;
+      background: linear-gradient(90deg, var(--orange), var(--pink));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+
+    .feature-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 30px 70px rgba(255, 107, 53, 0.2);
+      border-color: var(--orange);
+    }
+
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      color: white;
+      margin-bottom: 2rem;
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+    }
+
+    .feature-card h3 {
+      font-size: 1.85rem;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      color: var(--text-gray);
+      line-height: 1.8;
+      flex: 1;
+      font-size: 1.05rem;
+    }
+
+    /* Tools Section */
+    .tools {
+      background: var(--bg-cream);
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .tool-card {
+      background: white;
+      border-radius: 28px;
+      padding: 3rem;
+      border: 2px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-12px) rotate(1deg);
+      box-shadow: 0 30px 70px rgba(255, 107, 53, 0.2);
+      border-color: var(--orange);
+    }
+
+    .tool-icon {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.25rem;
+      color: white;
+      margin: 0 auto 2rem;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 12px 32px rgba(162, 89, 255, 0.3);
+    }
+
+    .tool-card:hover .tool-icon {
+      transform: rotateY(180deg) scale(1.1);
+    }
+
+    .tool-card h3 {
+      font-size: 1.65rem;
+      margin-bottom: 1rem;
+      letter-spacing: -0.01em;
+    }
+
+    .tool-card p {
+      color: var(--text-gray);
+      line-height: 1.7;
+      font-size: 1.05rem;
+    }
+
+    /* Showcase Section */
+    .showcase {
+      background: var(--text-dark);
+      color: white;
+    }
+
+    .showcase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .showcase-item {
+      border-radius: 28px;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 4/3;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: #2a2a2a;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .showcase-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .showcase-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: 0 30px 80px rgba(255, 107, 53, 0.4);
+      border-color: var(--orange);
+    }
+
+    .showcase-item:hover img {
+      transform: scale(1.15);
+    }
+
+    .showcase-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5rem;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.95), transparent);
+      transform: translateY(100%);
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .showcase-item:hover .showcase-overlay {
+      transform: translateY(0);
+    }
+
+    .showcase-overlay h4 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .showcase-overlay p {
+      font-size: 1rem;
+      opacity: 0.85;
+    }
+
+    /* Pricing - INCREASED SELECTION SIZE */
+    .pricing {
+      background: linear-gradient(180deg, var(--bg-cream), var(--bg-light));
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+      align-items: stretch;
+    }
+
+    .pricing-card {
+      background: white;
+      border-radius: 32px;
+      padding: 3.5rem 3rem;
+      border: 3px solid var(--border);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Default hover effect - only for non-selected cards */
+    .pricing-card:not(.selected):hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 25px 60px rgba(255, 107, 53, 0.18);
+      border-color: rgba(255, 107, 53, 0.5);
+    }
+
+    /* SELECTED STATE - SIGNIFICANTLY INCREASED SIZE */
+    .pricing-card.selected {
+      transform: scale(1.12);
+      border-color: var(--orange);
+      background: linear-gradient(135deg, rgba(255, 107, 53, 0.08), rgba(255, 0, 110, 0.08));
+      box-shadow: 0 40px 90px rgba(255, 107, 53, 0.4);
+      z-index: 10;
+    }
+
+    /* Selected card hover - adds more lift */
+    .pricing-card.selected:hover {
+      transform: scale(1.12) translateY(-8px);
+      box-shadow: 0 45px 100px rgba(255, 107, 53, 0.5);
+    }
+
+    .pricing-card.featured {
+      border: 3px solid var(--orange);
+      box-shadow: 0 30px 60px rgba(255, 107, 53, 0.25);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -18px;
+      right: 35px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 6px 24px rgba(255, 107, 53, 0.45);
+    }
+
+    .selected-badge {
+      position: absolute;
+      top: -18px;
+      left: 35px;
+      background: linear-gradient(135deg, #10b981, var(--cyan));
+      color: white;
+      padding: 0.65rem 1.5rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 6px 24px rgba(16, 185, 129, 0.45);
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .pricing-card.selected .selected-badge {
+      display: flex;
+    }
+
+    .pricing-card h3 {
+      font-size: 2rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .pricing-card .price {
+      font-size: 4rem;
+      font-weight: 900;
+      font-family: 'Outfit', sans-serif;
+      margin: 2rem 0;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -0.02em;
+    }
+
+    .pricing-card .price span {
+      font-size: 1.35rem;
+      color: var(--text-gray);
+      font-weight: 600;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin: 2.5rem 0;
+      flex: 1;
+    }
+
+    .pricing-features li {
+      padding: 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 2px solid var(--border);
+      font-size: 1.05rem;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features i {
+      color: var(--orange);
+      font-size: 1.25rem;
+    }
+
+    .pricing-card .btn {
+      width: 100%;
+      justify-content: center;
+      margin-top: auto;
+      pointer-events: none;
+      font-size: 1.05rem;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 2.5rem;
+      margin-top: 4rem;
+    }
+
+    .testimonial-card {
+      background: white;
+      border-radius: 28px;
+      padding: 3rem;
+      border: 2px solid var(--border);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-12px) rotate(-1deg);
+      box-shadow: 0 30px 70px rgba(255, 107, 53, 0.18);
+      border-color: var(--orange);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .testimonial-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.75rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: 0 8px 24px rgba(162, 89, 255, 0.3);
+    }
+
+    .testimonial-info h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .testimonial-info p {
+      font-size: 0.95rem;
+      color: var(--text-gray);
+      font-weight: 600;
+    }
+
+    .testimonial-rating {
+      color: var(--yellow);
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+    }
+
+    .testimonial-text {
+      color: var(--text-gray);
+      line-height: 1.8;
+      font-size: 1.1rem;
+      font-style: italic;
+    }
+
+    /* Contact Section */
+    .contact {
+      background: white;
+    }
+
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      max-width: 1250px;
+      margin: 0 auto;
+    }
+
+    .contact-info h3 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-info p {
+      color: var(--text-gray);
+      font-size: 1.15rem;
+      margin-bottom: 2.5rem;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    .contact-details {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      box-shadow: 0 8px 24px rgba(255, 107, 53, 0.3);
+    }
+
+    .contact-text h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.01em;
+    }
+
+    .contact-text p {
+      color: var(--text-gray);
+      font-size: 1rem;
+      margin: 0;
+      font-weight: 600;
+    }
+
+    .contact-form {
+      background: var(--bg-cream);
+      padding: 3.5rem;
+      border-radius: 28px;
+      border: 2px solid var(--border);
+    }
+
+    .form-group {
+      margin-bottom: 1.75rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      font-size: 0.95rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1.25rem;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      font-size: 1rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.3s;
+      background: white;
+      font-weight: 500;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 4px rgba(255, 107, 53, 0.12);
+    }
+
+    .form-group textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      color: white;
+      text-align: center;
+      padding: 7rem 2rem;
+      border-radius: 48px;
+      margin: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 50%;
+    }
+
+    .cta-section::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+    }
+
+    .cta-content {
+      position: relative;
+      z-index: 10;
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+    }
+
+    .cta-section p {
+      font-size: 1.4rem;
+      margin-bottom: 3rem;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--text-dark);
+      color: white;
+      padding: 5rem 2rem 2.5rem;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand {
+      max-width: 340px;
+    }
+
+    .footer-logo {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--orange), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-brand p {
+      opacity: 0.75;
+      line-height: 1.8;
+      font-size: 1.05rem;
+    }
+
+    .footer-section h4 {
+      margin-bottom: 2rem;
+      font-size: 1.15rem;
+      letter-spacing: -0.01em;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 1rem;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .footer-section a:hover {
+      color: var(--orange);
+      transform: translateX(3px);
+      display: inline-block;
+    }
+
+    .footer-bottom {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding-top: 2.5rem;
+      border-top: 2px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.25rem;
+    }
+
+    .social-links a {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.25rem;
+    }
+
+    .social-links a:hover {
+      background: var(--orange);
+      transform: translateY(-4px);
+    }
+
+    /* Scroll animations */
+    .scroll-animate {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-animate.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Success Message */
+    .success-message {
+      display: none;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #10b981, var(--cyan));
+      color: white;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      align-items: center;
+      gap: 1rem;
+      font-weight: 600;
+    }
+
+    .success-message.show {
+      display: flex;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 7rem 2rem 4rem;
+        gap: 3rem;
+      }
+
+      .hero-visual {
+        order: -1;
+      }
+
+      .hero-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .features-grid,
+      .tools-grid,
+      .showcase-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-container {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      /* Pricing mobile adjustments */
+      .pricing-card.selected {
+        transform: scale(1.03);
+      }
+
+      .pricing-card.selected:hover {
+        transform: scale(1.03) translateY(-8px);
+      }
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .mobile-menu-toggle span {
+      width: 28px;
+      height: 3px;
+      background: var(--text-dark);
+      border-radius: 3px;
+      transition: all 0.3s;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle {
+        display: flex;
+      }
+    }
+
+    .lucide-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="header">
+    <nav>
+      <a href="#" class="logo">
+        <i data-lucide="wand-2"></i>
+        PixelForge
+      </a>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#showcase">Showcase</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <a href="#contact" class="btn btn-primary">
+          <i data-lucide="rocket"></i>
+          Get Started
+        </a>
+        <div class="mobile-menu-toggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>
+        Design<br>
+        <span class="gradient-text">Anything</span><br>
+        10x Faster
+      </h1>
+      <p>
+        Transform ideas into stunning designs instantly. PixelForge combines powerful AI with intuitive tools to help
+        you create like never before.
+      </p>
+      <div class="hero-buttons">
+        <a href="#contact" class="btn btn-primary">
+          <i data-lucide="rocket"></i>
+          Start Creating Free
+        </a>
+        <a href="#showcase" class="btn btn-secondary">
+          <i data-lucide="images"></i>
+          View Showcase
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">500K+</div>
+          <div class="stat-label">Creators</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">50M+</div>
+          <div class="stat-label">Designs</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">4.9/5</div>
+          <div class="stat-label">Rating</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="mockup-3d">
+        <div class="mockup-card">
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=600&h=400&fit=crop"
+            alt="Design Interface" loading="lazy">
+        </div>
+      </div>
+      <div class="floating-shape shape-1"></div>
+      <div class="floating-shape shape-2"></div>
+      <div class="floating-shape shape-3"></div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Features</div>
+        <h2>Everything You Need<br>to <span class="gradient-text">Create Amazingly</span></h2>
+        <p class="section-subtitle">Powerful AI tools, templates, and collaboration features designed for modern
+          creators who want to work faster and smarter.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="brain"></i>
+          </div>
+          <h3>AI-Powered Design</h3>
+          <p>Let AI handle the heavy lifting. Generate layouts, color schemes, typography, and complete designs from
+            simple text prompts in seconds.</p>
+        </div>
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="zap"></i>
+          </div>
+          <h3>Instant Templates</h3>
+          <p>Start with 10,000+ professional templates for every use case and customize them instantly with our
+            intuitive drag-and-drop editor.</p>
+        </div>
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="users"></i>
+          </div>
+          <h3>Real-Time Collaboration</h3>
+          <p>Design together with your team in real-time with comments, version control, and shared libraries for
+            seamless creative workflows.</p>
+        </div>
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="smartphone"></i>
+          </div>
+          <h3>Works Everywhere</h3>
+          <p>Design on any device—desktop, tablet, or mobile. Your work syncs automatically across all platforms in
+            real-time, anytime.</p>
+        </div>
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="palette"></i>
+          </div>
+          <h3>Brand Kit</h3>
+          <p>Save your brand colors, fonts, and logos for consistent designs every time. Apply your brand identity
+            instantly to any template.</p>
+        </div>
+        <div class="feature-card scroll-animate">
+          <div class="feature-icon">
+            <i data-lucide="download"></i>
+          </div>
+          <h3>Export Anywhere</h3>
+          <p>Download in any format—PNG, SVG, PDF, or MP4. Optimize for web, print, or social media with one click and
+            perfect quality.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tools Section -->
+  <section id="tools" class="tools">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Tools</div>
+        <h2>All the Tools<br>You <span class="gradient-text">Need</span></h2>
+        <p class="section-subtitle">From graphics to videos, we've got you covered with AI-powered creative tools that
+          make design effortless.</p>
+      </div>
+      <div class="tools-grid">
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="image"></i>
+          </div>
+          <h3>Logo Maker</h3>
+          <p>Create professional logos in minutes with AI-powered suggestions and infinite customization options.</p>
+        </div>
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="pen-tool"></i>
+          </div>
+          <h3>Poster Designer</h3>
+          <p>Design eye-catching posters for events, promotions, and social media campaigns that stand out.</p>
+        </div>
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="video"></i>
+          </div>
+          <h3>Video Editor</h3>
+          <p>Edit videos with AI-powered tools, smooth transitions, stunning effects, and text animations.</p>
+        </div>
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="images"></i>
+          </div>
+          <h3>Photo Editor</h3>
+          <p>Enhance photos with AI filters, instant background removal, and smart adjustment tools.</p>
+        </div>
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="type"></i>
+          </div>
+          <h3>Typography Studio</h3>
+          <p>Create beautiful typography with custom fonts, creative effects, and perfect layouts.</p>
+        </div>
+        <div class="tool-card scroll-animate">
+          <div class="tool-icon">
+            <i data-lucide="share-2"></i>
+          </div>
+          <h3>Social Graphics</h3>
+          <p>Design posts, stories, and ads optimized for every social platform automatically.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section id="showcase" class="showcase">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Showcase</div>
+        <h2>Made with <span class="gradient-text">PixelForge</span></h2>
+        <p class="section-subtitle">See what our creative community has built with our platform.</p>
+      </div>
+      <div class="showcase-grid">
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=600&h=450&fit=crop"
+            alt="Brand Identity Design" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Brand Identity Design</h4>
+            <p>by Sarah Johnson</p>
+          </div>
+        </div>
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=600&h=450&fit=crop"
+            alt="Social Media Campaign" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Social Media Campaign</h4>
+            <p>by Mike Chen</p>
+          </div>
+        </div>
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1558655146-9f40138edfeb?w=600&h=450&fit=crop"
+            alt="Website Redesign" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Website Redesign</h4>
+            <p>by Emma Davis</p>
+          </div>
+        </div>
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=450&fit=crop"
+            alt="Product Packaging" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Product Packaging</h4>
+            <p>by Alex Kumar</p>
+          </div>
+        </div>
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1572044162444-ad60f128bdea?w=600&h=450&fit=crop"
+            alt="Event Poster Series" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Event Poster Series</h4>
+            <p>by Lisa Wong</p>
+          </div>
+        </div>
+        <div class="showcase-item scroll-animate">
+          <img src="https://images.unsplash.com/photo-1609921212029-bb5a28e60960?w=600&h=450&fit=crop"
+            alt="Mobile App UI" loading="lazy">
+          <div class="showcase-overlay">
+            <h4>Mobile App UI</h4>
+            <p>by David Park</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Pricing</div>
+        <h2>Choose Your <span class="gradient-text">Plan</span></h2>
+        <p class="section-subtitle">Start free and upgrade as you grow. Click anywhere on a card to select your
+          preferred plan.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card scroll-animate" data-plan="free">
+          <div class="selected-badge"><i data-lucide="check-circle"></i> SELECTED</div>
+          <h3>Free</h3>
+          <div class="price">₹0<span>/mo</span></div>
+          <p style="color: var(--text-gray); margin-bottom: 2rem; font-weight: 600;">Perfect for trying out PixelForge
+          </p>
+          <ul class="pricing-features">
+            <li><i data-lucide="check-circle"></i> 10 AI designs/month</li>
+            <li><i data-lucide="check-circle"></i> 1,000+ templates</li>
+            <li><i data-lucide="check-circle"></i> Basic editing tools</li>
+            <li><i data-lucide="check-circle"></i> Export to PNG</li>
+            <li><i data-lucide="check-circle"></i> 5 GB storage</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Get Started</a>
+        </div>
+
+        <div class="pricing-card featured scroll-animate" data-plan="pro">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="selected-badge"><i data-lucide="check-circle"></i> SELECTED</div>
+          <h3>Pro</h3>
+          <div class="price">₹999<span>/mo</span></div>
+          <p style="color: var(--text-gray); margin-bottom: 2rem; font-weight: 600;">For professional creators</p>
+          <ul class="pricing-features">
+            <li><i data-lucide="check-circle"></i> Unlimited AI designs</li>
+            <li><i data-lucide="check-circle"></i> 10,000+ templates</li>
+            <li><i data-lucide="check-circle"></i> All pro tools</li>
+            <li><i data-lucide="check-circle"></i> Export to all formats</li>
+            <li><i data-lucide="check-circle"></i> 100 GB storage</li>
+            <li><i data-lucide="check-circle"></i> Brand kit</li>
+            <li><i data-lucide="check-circle"></i> Priority support</li>
+          </ul>
+          <a href="#contact" class="btn btn-primary">Start 14-Day Trial</a>
+        </div>
+
+        <div class="pricing-card scroll-animate" data-plan="team">
+          <div class="selected-badge"><i data-lucide="check-circle"></i> SELECTED</div>
+          <h3>Team</h3>
+          <div class="price">₹2,999<span>/mo</span></div>
+          <p style="color: var(--text-gray); margin-bottom: 2rem; font-weight: 600;">For teams and agencies</p>
+          <ul class="pricing-features">
+            <li><i data-lucide="check-circle"></i> Everything in Pro</li>
+            <li><i data-lucide="check-circle"></i> Up to 10 team members</li>
+            <li><i data-lucide="check-circle"></i> Real-time collaboration</li>
+            <li><i data-lucide="check-circle"></i> Shared brand kits</li>
+            <li><i data-lucide="check-circle"></i> 1 TB storage</li>
+            <li><i data-lucide="check-circle"></i> Admin controls</li>
+            <li><i data-lucide="check-circle"></i> Dedicated support</li>
+          </ul>
+          <a href="#contact" class="btn btn-secondary">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Testimonials</div>
+        <h2>What Creators <span class="gradient-text">Say</span></h2>
+        <p class="section-subtitle">Join 500,000+ creators who trust PixelForge for their design needs.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card scroll-animate">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">SJ</div>
+            <div class="testimonial-info">
+              <h4>Sarah Johnson</h4>
+              <p>Brand Designer</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+          </div>
+          <p class="testimonial-text">"PixelForge completely transformed my workflow. What used to take me hours now
+            takes minutes. The AI suggestions are incredibly accurate!"</p>
+        </div>
+        <div class="testimonial-card scroll-animate">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">MC</div>
+            <div class="testimonial-info">
+              <h4>Mike Chen</h4>
+              <p>Social Media Manager</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+          </div>
+          <p class="testimonial-text">"As someone who creates 50+ posts per week, PixelForge is a lifesaver. The
+            templates are beautiful and customization is endless."</p>
+        </div>
+        <div class="testimonial-card scroll-animate">
+          <div class="testimonial-header">
+            <div class="testimonial-avatar">ED</div>
+            <div class="testimonial-info">
+              <h4>Emma Davis</h4>
+              <p>Freelance Designer</p>
+            </div>
+          </div>
+          <div class="testimonial-rating">
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+            <i data-lucide="star"></i>
+          </div>
+          <p class="testimonial-text">"The collaboration features are game-changing. My clients can comment directly and
+            we iterate in real-time. Love it!"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <div class="section-header scroll-animate">
+        <div class="section-badge">Contact</div>
+        <h2>Let's Create <span class="gradient-text">Together</span></h2>
+        <p class="section-subtitle">Have questions? Want to discuss a project? We'd love to hear from you!</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-info scroll-animate">
+          <h3>Get in Touch</h3>
+          <p>Whether you're ready to start designing or just have questions about PixelForge, our team is here to help.
+            Send us a message and we'll respond within 24 hours.</p>
+          <div class="contact-details">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i data-lucide="mail"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Email</h4>
+                <p>hello@pixelforge.design</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i data-lucide="phone"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Phone</h4>
+                <p>+91 98765 43210</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <i data-lucide="map-pin"></i>
+              </div>
+              <div class="contact-text">
+                <h4>Location</h4>
+                <p>Bangalore, Karnataka, India</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="scroll-animate">
+          <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contactForm">
+            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+            <input type="hidden" name="subject" value="New Contact from PixelForge Landing Page">
+            <input type="hidden" name="from_name" value="PixelForge Contact Form">
+
+            <div class="success-message" id="successMessage">
+              <i data-lucide="check-circle"></i>
+              <span>Thank you! Your message has been sent successfully. We'll get back to you soon!</span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required placeholder="John Doe">
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="you@example.com">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number (Optional)</label>
+              <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" name="subject" required placeholder="How can we help you?">
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" required
+                placeholder="Tell us more about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">
+              <i data-lucide="send"></i>
+              Send Message
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <div class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Create Something Amazing?</h2>
+      <p>Join 500,000+ creators and start designing for free today. No credit card required.</p>
+      <div class="cta-buttons">
+        <a href="#contact" class="btn btn-white">
+          <i data-lucide="rocket"></i>
+          Get Started Free
+        </a>
+        <a href="#showcase" class="btn btn-secondary">
+          <i data-lucide="images"></i>
+          View Showcase
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <i data-lucide="wand-2"></i>
+          PixelForge
+        </div>
+        <p>Empowering creators with AI-powered design tools. Transform ideas into stunning visuals in minutes.</p>
+        <div class="social-links" style="margin-top: 2rem;">
+          <a href="#" aria-label="Twitter"><i data-lucide="twitter"></i></a>
+          <a href="#" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+          <a href="#" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+          <a href="#" aria-label="YouTube"><i data-lucide="youtube"></i></a>
+        </div>
+      </div>
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#tools">Tools</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#">Templates</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Careers</a></li>
+          <li><a href="#">Press</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Legal</h4>
+        <ul>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 PixelForge. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" aria-label="App Store"><i data-lucide="smartphone"></i></a>
+        <a href="#" aria-label="Google Play"><i data-lucide="smartphone"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -80px 0px'
+    });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => observer.observe(el));
+
+    // Pricing selection - MAINTAINS INCREASED SIZE
+    document.querySelectorAll('.pricing-card').forEach(card => {
+      card.addEventListener('click', function (e) {
+        document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        localStorage.setItem('selectedPlan', this.dataset.plan);
+
+        if (e.target.closest('.btn')) {
+          setTimeout(() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' }), 300);
+        }
+      });
+    });
+
+    // Load selected plan
+    window.addEventListener('load', () => {
+      const selectedPlan = localStorage.getItem('selectedPlan');
+      if (selectedPlan) {
+        const card = document.querySelector(`[data-plan="${selectedPlan}"]`);
+        if (card) {
+          document.querySelectorAll('.pricing-card').forEach(c => c.classList.remove('selected'));
+          card.classList.add('selected');
+        }
+      }
+    });
+
+    // Web3Forms handling
+    document.getElementById('contactForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const submitButton = e.target.querySelector('button[type="submit"]');
+
+      submitButton.disabled = true;
+      submitButton.innerHTML = '<i data-lucide="loader-2" class="lucide-spin"></i> Sending...';
+      lucide.createIcons();
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById('successMessage').classList.add('show');
+          e.target.reset();
+          setTimeout(() => document.getElementById('successMessage').classList.remove('show'), 5000);
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        alert('Oops! Something went wrong. Please email us at hello@pixelforge.design');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = '<i data-lucide="send"></i> Send Message';
+        lucide.createIcons();
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - NexusFlow</title>
+
+  <!-- Font Awesome -->
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #6366f1;
+      --primary-dark: #4f46e5;
+      --secondary: #ec4899;
+      --accent: #14b8a6;
+      --bg-dark: #0a0b1e;
+      --bg-darker: #050614;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --success: #10b981;
+    }
+
+    html,
+    body {
+      height: 100%;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-darker);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Animated gradient background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 90%, rgba(20, 184, 166, 0.1) 0%, transparent 50%);
+      animation: gradientShift 15s ease infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientShift {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+      }
+    }
+
+    .auth-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    .back-home {
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      z-index: 100;
+    }
+
+    .back-home:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      transform: translateX(-5px);
+    }
+
+    .auth-container {
+      max-width: 520px;
+      width: 100%;
+      padding: 3rem;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+      position: relative;
+      z-index: 10;
+      animation: fadeInUp 0.6s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .auth-logo {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .auth-header h2 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .auth-header p {
+      color: var(--text-muted);
+    }
+
+    .plan-selector {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(236, 72, 153, 0.1));
+      border: 2px solid var(--primary);
+      border-radius: 15px;
+      padding: 1.25rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .plan-selector::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+      border-radius: 15px;
+      z-index: -1;
+      opacity: 0.3;
+      filter: blur(10px);
+    }
+
+    .plan-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    .plan-selector .plan-label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .plan-selector .plan-name {
+      font-size: 1.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+    }
+
+    .plan-selector .plan-price {
+      font-size: 1.2rem;
+      color: var(--text);
+      font-weight: 600;
+      margin-top: 0.25rem;
+    }
+
+    .change-plan {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: all 0.3s;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      background: rgba(99, 102, 241, 0.1);
+    }
+
+    .change-plan:hover {
+      color: var(--secondary);
+      background: rgba(236, 72, 153, 0.1);
+    }
+
+    .auth-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .form-group label i {
+      color: var(--primary);
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 1.25rem;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .form-group input {
+      padding: 1rem 1.25rem 1rem 3rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    }
+
+    .password-strength {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .password-strength-bar.weak {
+      width: 33%;
+      background: #ef4444;
+    }
+
+    .password-strength-bar.medium {
+      width: 66%;
+      background: var(--warning);
+    }
+
+    .password-strength-bar.strong {
+      width: 100%;
+      background: var(--success);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+    }
+
+    .checkbox-group label {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-group a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    .checkbox-group a:hover {
+      text-decoration: underline;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      width: 100%;
+      padding: 1rem;
+      font-size: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+    }
+
+    .btn-primary:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .social-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .social-btn {
+      padding: 0.875rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .social-btn i {
+      font-size: 1.2rem;
+    }
+
+    .social-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 2rem;
+      color: var(--text-muted);
+    }
+
+    .auth-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .auth-footer a:hover {
+      color: var(--secondary);
+    }
+
+    .alert {
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      animation: slideDown 0.3s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .alert.show {
+      display: flex;
+    }
+
+    .alert-success {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--success);
+    }
+
+    .alert-error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    @media (max-width: 768px) {
+      .social-login {
+        grid-template-columns: 1fr;
+      }
+
+      .auth-container {
+        padding: 2rem;
+      }
+
+      .back-home {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .auth-header h2 {
+        font-size: 2rem;
+      }
+    }
+
+    .lucide-spin {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="auth-page">
+    <a href="index.html" class="back-home">
+      <i data-lucide="arrow-left"></i>
+      Back to Home
+    </a>
+    <div class="auth-container">
+      <div class="auth-header">
+        <div class="auth-logo">
+          <i data-lucide="zap"></i>
+        </div>
+        <h2>Get Started Free</h2>
+        <p>Create your account in seconds</p>
+      </div>
+
+      <!-- Plan Selector -->
+      <div class="plan-selector" id="planDisplay">
+        <div class="plan-icon">
+          <i data-lucide="crown"></i>
+        </div>
+        <div class="plan-label">
+          <i data-lucide="check-circle"></i>
+          Selected Plan
+        </div>
+        <div class="plan-name" id="planName">Professional</div>
+        <div class="plan-price" id="planPrice">₹2,999/month</div>
+        <a href="index.html#pricing" class="change-plan">
+          <i data-lucide="arrow-left-right"></i>
+          Change plan
+        </a>
+      </div>
+
+      <div id="alert" class="alert"></div>
+
+      <form class="auth-form" onsubmit="handleSignup(event)">
+        <div class="form-group">
+          <label for="signup-name">
+            <i data-lucide="user"></i>
+            Full Name
+          </label>
+          <div class="input-wrapper">
+            <i data-lucide="user"></i>
+            <input type="text" id="signup-name" placeholder="John Doe" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="signup-email">
+            <i data-lucide="mail"></i>
+            Work Email
+          </label>
+          <div class="input-wrapper">
+            <i data-lucide="mail"></i>
+            <input type="email" id="signup-email" placeholder="you@company.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="signup-password">
+            <i data-lucide="lock"></i>
+            Password
+          </label>
+          <div class="input-wrapper">
+            <i data-lucide="lock"></i>
+            <input type="password" id="signup-password" placeholder="Create a strong password" required minlength="8"
+              oninput="checkPasswordStrength()">
+          </div>
+          <div class="password-strength">
+            <div class="password-strength-bar" id="passwordStrengthBar"></div>
+          </div>
+        </div>
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" required>
+          <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+        </div>
+        <button type="submit" class="btn btn-primary" id="submitBtn">
+          <i data-lucide="rocket"></i>
+          Create Account
+        </button>
+      </form>
+      <div class="divider">Or sign up with</div>
+      <div class="social-login">
+        <button class="social-btn" onclick="handleSocialSignup('google')">
+          <i data-lucide="chrome"></i>
+          Google
+        </button>
+        <button class="social-btn" onclick="handleSocialSignup('linkedin')">
+          <i data-lucide="linkedin"></i>
+          LinkedIn
+        </button>
+      </div>
+      <div class="auth-footer">
+        Already have an account? <a href="login.html">Sign in <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Plan data
+    const plans = {
+      starter: { name: 'Starter', price: 'Free', icon: 'star' },
+      professional: { name: 'Professional', price: '₹2,999/month', icon: 'crown' },
+      enterprise: { name: 'Enterprise', price: 'Custom Pricing', icon: 'building' }
+    };
+
+    function showAlert(message, type) {
+      const alert = document.getElementById('alert');
+      alert.className = `alert alert-${type} show`;
+      alert.innerHTML = `
+        <i data-lucide="${type === 'success' ? 'check-circle' : 'alert-circle'}"></i>
+        <span>${message}</span>
+      `;
+      lucide.createIcons();
+
+      setTimeout(() => {
+        alert.classList.remove('show');
+      }, 5000);
+    }
+
+    // Get plan from URL parameter or localStorage
+    function getSelectedPlan() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlPlan = urlParams.get('plan');
+      const storedPlan = localStorage.getItem('selectedPlan');
+      return urlPlan || storedPlan || 'professional';
+    }
+
+    // Update plan display
+    function updatePlanDisplay() {
+      const selectedPlan = getSelectedPlan();
+      const plan = plans[selectedPlan];
+
+      if (plan) {
+        document.getElementById('planName').textContent = plan.name;
+        document.getElementById('planPrice').textContent = plan.price;
+        const iconEl = document.querySelector('.plan-icon i');
+        iconEl.setAttribute('data-lucide', plan.icon);
+        iconEl.className = ''; // Remove old classes
+        // Re-render icons since we changed attributes
+        lucide.createIcons();
+      }
+    }
+
+    // Password strength checker
+    function checkPasswordStrength() {
+      const password = document.getElementById('signup-password').value;
+      const strengthBar = document.getElementById('passwordStrengthBar');
+
+      if (password.length === 0) {
+        strengthBar.className = 'password-strength-bar';
+        return;
+      }
+
+      let strength = 0;
+
+      // Length check
+      if (password.length >= 8) strength++;
+      if (password.length >= 12) strength++;
+
+      // Contains lowercase and uppercase
+      if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
+
+      // Contains numbers
+      if (/\d/.test(password)) strength++;
+
+      // Contains special characters
+      if (/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) strength++;
+
+      if (strength <= 2) {
+        strengthBar.className = 'password-strength-bar weak';
+      } else if (strength <= 4) {
+        strengthBar.className = 'password-strength-bar medium';
+      } else {
+        strengthBar.className = 'password-strength-bar strong';
+      }
+    }
+
+    // Handle form submission
+    function handleSignup(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const selectedPlan = getSelectedPlan();
+      const submitBtn = document.getElementById('submitBtn');
+
+      // Disable button during submission
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i data-lucide="loader-2" class="lucide-spin"></i> Creating account...';
+      lucide.createIcons();
+
+      // Here you would normally send data to your backend
+      console.log('Signup attempt:', { name, email, password, plan: selectedPlan });
+
+      // Simulate API call
+      setTimeout(() => {
+        showAlert(`Account created successfully with ${plans[selectedPlan].name} plan!`, 'success');
+
+        // Redirect to dashboard after 2 seconds
+        setTimeout(() => {
+          // window.location.href = 'dashboard.html';
+          alert('Would redirect to dashboard.html');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i data-lucide="rocket"></i> Create Account';
+          lucide.createIcons();
+        }, 2000);
+      }, 1500);
+    }
+
+    function handleSocialSignup(provider) {
+      showAlert(`${provider.charAt(0).toUpperCase() + provider.slice(1)} signup coming soon!`, 'success');
+      // Here you would integrate with OAuth providers
+      console.log(`Social signup with ${provider}`);
+    }
+
+    // Update plan display on page load
+    window.addEventListener('load', () => {
+      lucide.createIcons();
+      updatePlanDisplay();
+
+      // Pre-fill email if passed from CTA form
+      const urlParams = new URLSearchParams(window.location.search);
+      const email = urlParams.get('email');
+      if (email) {
+        document.getElementById('signup-email').value = email;
+      }
+    });
+  </script>
+</body>
+
+</html>

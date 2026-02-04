@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuantumGrid - Next-Gen Cloud Infrastructure Platform</title>
+  <meta name="description"
+    content="Enterprise-grade cloud infrastructure with quantum-speed deployment, AI-powered optimization, and military-grade security.">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cyber-blue: #00f0ff;
+      --neon-green: #39ff14;
+      --electric-purple: #bf00ff;
+      --hot-pink: #ff006e;
+      --dark-bg: #0a0e27;
+      --darker-bg: #050a1e;
+      --card-bg: rgba(15, 23, 42, 0.8);
+      --grid-color: rgba(0, 240, 255, 0.08);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--dark-bg);
+      color: #ffffff;
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* Animated Tech Grid Background */
+    .tech-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      animation: gridMove 30s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gridMove {
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(40px);
+      }
+    }
+
+    /* Glowing Orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.25;
+      pointer-events: none;
+      z-index: 0;
+      animation: orbFloat 25s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--cyber-blue);
+      top: 5%;
+      right: 5%;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--neon-green);
+      bottom: 10%;
+      left: 5%;
+      animation-delay: 8s;
+    }
+
+    .orb-3 {
+      width: 450px;
+      height: 450px;
+      background: var(--electric-purple);
+      top: 40%;
+      left: 40%;
+      animation-delay: 16s;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      33% {
+        transform: translate(80px, -80px) scale(1.1);
+      }
+
+      66% {
+        transform: translate(-80px, 80px) scale(0.9);
+      }
+    }
+
+    /* Content Wrapper */
+    .content {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header */
+    header {
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(10, 14, 39, 0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: var(--cyber-blue);
+      text-shadow: 0 0 20px var(--cyber-blue);
+      letter-spacing: 3px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+
+    .logo:hover {
+      text-shadow: 0 0 30px var(--cyber-blue), 0 0 50px var(--cyber-blue);
+    }
+
+    .logo::before {
+      content: '< ';
+      color: var(--neon-green);
+    }
+
+    .logo::after {
+      content: ' />';
+      color: var(--neon-green);
+    }
+
+    nav {
+      display: flex;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    nav a {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+      position: relative;
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 1px;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--cyber-blue);
+      box-shadow: 0 0 10px var(--cyber-blue);
+      transition: width 0.3s;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    nav a:hover {
+      color: var(--cyber-blue);
+      text-shadow: 0 0 10px var(--cyber-blue);
+    }
+
+    .header-cta {
+      padding: 0.85rem 2rem;
+      background: transparent;
+      color: var(--cyber-blue);
+      border: 2px solid var(--cyber-blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .header-cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-blue);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+
+    .header-cta:hover::before {
+      left: 0;
+    }
+
+    .header-cta:hover {
+      color: var(--dark-bg);
+      box-shadow: 0 0 40px var(--cyber-blue);
+    }
+
+    /* Mobile Menu Toggle */
+    .mobile-menu {
+      display: none;
+      flex-direction: column;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .mobile-menu span {
+      width: 30px;
+      height: 3px;
+      background: var(--cyber-blue);
+      box-shadow: 0 0 10px var(--cyber-blue);
+      transition: all 0.3s;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 3rem 6rem;
+      position: relative;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1.5rem;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid var(--cyber-blue);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      color: var(--cyber-blue);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 3rem;
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+      animation: pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 30px rgba(0, 240, 255, 0.2);
+      }
+
+      50% {
+        box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+      }
+    }
+
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+      animation: glitch 8s infinite;
+    }
+
+    @keyframes glitch {
+
+      0%,
+      92%,
+      100% {
+        transform: translate(0);
+      }
+
+      93% {
+        transform: translate(-3px, 3px);
+      }
+
+      94% {
+        transform: translate(3px, -3px);
+      }
+
+      95% {
+        transform: translate(-3px, 3px);
+      }
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--cyber-blue), var(--neon-green), var(--electric-purple), var(--hot-pink));
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientFlow 4s ease infinite;
+    }
+
+    @keyframes gradientFlow {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    .hero-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      color: var(--neon-green);
+      margin-bottom: 2rem;
+      text-shadow: 0 0 15px var(--neon-green);
+      animation: typing 3s steps(40) 1s forwards;
+      overflow: hidden;
+      white-space: nowrap;
+      max-width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+      border-right: 3px solid var(--neon-green);
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+
+      to {
+        width: 100%;
+      }
+    }
+
+    .hero p {
+      font-size: 1.35rem;
+      color: rgba(255, 255, 255, 0.75);
+      max-width: 850px;
+      margin: 0 auto 4rem;
+      line-height: 1.9;
+      font-weight: 400;
+    }
+
+    /* Buttons */
+    .hero-buttons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 5rem;
+    }
+
+    .btn {
+      padding: 1.4rem 3.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-primary {
+      background: transparent;
+      color: var(--cyber-blue);
+      border: 2px solid var(--cyber-blue);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+      clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--cyber-blue);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+
+    .btn-primary:hover::before {
+      left: 0;
+    }
+
+    .btn-primary:hover {
+      color: var(--dark-bg);
+      box-shadow: 0 0 50px var(--cyber-blue);
+      transform: translateY(-3px);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--neon-green);
+      border: 2px solid var(--neon-green);
+      box-shadow: 0 0 30px rgba(57, 255, 20, 0.3);
+      clip-path: polygon(0 0, calc(100% - 15px) 0, 100% 15px, 100% 100%, 15px 100%, 0 calc(100% - 15px));
+    }
+
+    .btn-secondary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: var(--neon-green);
+      transition: left 0.4s;
+      z-index: -1;
+    }
+
+    .btn-secondary:hover::before {
+      left: 0;
+    }
+
+    .btn-secondary:hover {
+      color: var(--dark-bg);
+      box-shadow: 0 0 50px var(--neon-green);
+      transform: translateY(-3px);
+    }
+
+    /* Stats Section */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(0, 240, 255, 0.2);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      transition: all 0.4s;
+      clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+      animation: scanline 3s linear infinite;
+    }
+
+    @keyframes scanline {
+      0% {
+        transform: translateX(-100%);
+      }
+
+      100% {
+        transform: translateX(100%);
+      }
+    }
+
+    .stat-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      border-top: 2px solid var(--cyber-blue);
+      border-right: 2px solid var(--cyber-blue);
+    }
+
+    .stat-card:hover {
+      transform: translateY(-15px);
+      border-color: var(--cyber-blue);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.4);
+    }
+
+    .stat-icon {
+      font-size: 3rem;
+      color: var(--cyber-blue);
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 20px var(--cyber-blue);
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--cyber-blue);
+      text-shadow: 0 0 25px var(--cyber-blue);
+      margin-bottom: 0.75rem;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Sections */
+    section {
+      padding: 10rem 3rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 6rem;
+    }
+
+    .section-tag {
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--neon-green);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 700;
+    }
+
+    .section-tag::before {
+      content: '[ ';
+      color: var(--cyber-blue);
+    }
+
+    .section-tag::after {
+      content: ' ]';
+      color: var(--cyber-blue);
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      margin-bottom: 2rem;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .section-subtitle {
+      font-size: 1.35rem;
+      color: rgba(255, 255, 255, 0.7);
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    /* Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      padding: 3.5rem;
+      position: relative;
+      transition: all 0.4s;
+      clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      border-top: 2px solid var(--cyber-blue);
+      border-right: 2px solid var(--cyber-blue);
+    }
+
+    .feature-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 25px;
+      height: 25px;
+      border-bottom: 2px solid var(--cyber-blue);
+      border-left: 2px solid var(--cyber-blue);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-12px);
+      border-color: var(--cyber-blue);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
+    }
+
+    .feature-icon {
+      font-size: 3.5rem;
+      color: var(--cyber-blue);
+      margin-bottom: 2rem;
+      text-shadow: 0 0 25px var(--cyber-blue);
+    }
+
+    .feature-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.85rem;
+      margin-bottom: 1.25rem;
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .feature-card p {
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.9;
+      font-size: 1.05rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      color: rgba(255, 255, 255, 0.7);
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list li::before {
+      content: '>';
+      color: var(--neon-green);
+      font-weight: 700;
+    }
+
+    /* Terminal Section */
+    .terminal-section {
+      margin-top: 5rem;
+    }
+
+    .terminal {
+      background: rgba(5, 10, 30, 0.95);
+      border: 1px solid var(--cyber-blue);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.25);
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .terminal-header {
+      background: rgba(0, 240, 255, 0.08);
+      padding: 1.25rem 1.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    }
+
+    .terminal-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px currentColor;
+    }
+
+    .terminal-dot:nth-child(1) {
+      background: #ff5f56;
+    }
+
+    .terminal-dot:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .terminal-dot:nth-child(3) {
+      background: #27c93f;
+    }
+
+    .terminal-title {
+      margin-left: 1rem;
+      color: rgba(255, 255, 255, 0.6);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    .terminal-body {
+      padding: 3rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.05rem;
+      line-height: 2;
+    }
+
+    .code-line {
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 0.75rem;
+    }
+
+    .code-comment {
+      color: var(--neon-green);
+      opacity: 0.8;
+    }
+
+    .code-keyword {
+      color: var(--cyber-blue);
+      font-weight: 600;
+    }
+
+    .code-string {
+      color: var(--electric-purple);
+    }
+
+    .code-success {
+      color: var(--neon-green);
+      font-weight: 600;
+    }
+
+    .code-url {
+      color: var(--cyber-blue);
+      text-decoration: underline;
+    }
+
+    /* Pricing Section */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      margin-top: 5rem;
+    }
+
+    .pricing-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      padding: 3.5rem 3rem;
+      position: relative;
+      transition: all 0.4s;
+      text-align: center;
+      clip-path: polygon(0 0, calc(100% - 25px) 0, 100% 25px, 100% 100%, 25px 100%, 0 calc(100% - 25px));
+    }
+
+    .pricing-card.featured {
+      border-color: var(--cyber-blue);
+      transform: scale(1.05);
+      box-shadow: 0 0 60px rgba(0, 240, 255, 0.3);
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 25px;
+      height: 25px;
+      border-top: 2px solid var(--cyber-blue);
+      border-right: 2px solid var(--cyber-blue);
+    }
+
+    .pricing-badge {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 0.5rem 1.5rem;
+      background: var(--cyber-blue);
+      color: var(--dark-bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      box-shadow: 0 0 30px var(--cyber-blue);
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-15px);
+      border-color: var(--cyber-blue);
+      box-shadow: 0 0 60px rgba(0, 240, 255, 0.4);
+    }
+
+    .pricing-card.featured:hover {
+      transform: scale(1.05) translateY(-15px);
+    }
+
+    .pricing-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      font-weight: 800;
+    }
+
+    .pricing-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--cyber-blue);
+      text-shadow: 0 0 30px var(--cyber-blue);
+      margin-bottom: 0.5rem;
+      line-height: 1;
+    }
+
+    .pricing-period {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.6);
+      margin-bottom: 3rem;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .pricing-features {
+      list-style: none;
+      margin-bottom: 3rem;
+      text-align: left;
+    }
+
+    .pricing-features li {
+      padding: 1rem 0;
+      color: rgba(255, 255, 255, 0.75);
+      border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.05rem;
+    }
+
+    .pricing-features li:last-child {
+      border-bottom: none;
+    }
+
+    .pricing-features i {
+      color: var(--neon-green);
+      font-size: 1.1rem;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 5rem;
+    }
+
+    .testimonial-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(0, 240, 255, 0.15);
+      padding: 3.5rem;
+      position: relative;
+      transition: all 0.4s;
+    }
+
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 2rem;
+      left: 2rem;
+      font-size: 8rem;
+      color: rgba(0, 240, 255, 0.1);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--cyber-blue);
+      box-shadow: 0 0 50px rgba(0, 240, 255, 0.3);
+    }
+
+    .testimonial-text {
+      font-size: 1.2rem;
+      line-height: 1.9;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 2.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .author-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--cyber-blue), var(--electric-purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: white;
+      border: 2px solid var(--cyber-blue);
+      box-shadow: 0 0 30px rgba(0, 240, 255, 0.4);
+    }
+
+    .author-info h4 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+
+    .author-info p {
+      color: rgba(255, 255, 255, 0.6);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    /* CTA Section */
+    .cta {
+      padding: 10rem 3rem;
+      text-align: center;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .cta-box {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border: 2px solid var(--cyber-blue);
+      padding: 6rem 5rem;
+      position: relative;
+      box-shadow: 0 0 80px rgba(0, 240, 255, 0.3);
+      clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px));
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40px;
+      height: 40px;
+      border-top: 3px solid var(--neon-green);
+      border-right: 3px solid var(--neon-green);
+    }
+
+    .cta-box::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      border-bottom: 3px solid var(--neon-green);
+      border-left: 3px solid var(--neon-green);
+    }
+
+    .cta h2 {
+      color: #fff;
+      margin-bottom: 2rem;
+    }
+
+    .cta p {
+      font-size: 1.4rem;
+      color: rgba(255, 255, 255, 0.75);
+      margin-bottom: 4rem;
+      line-height: 1.9;
+    }
+
+    /* Footer */
+    footer {
+      background: rgba(5, 10, 30, 0.95);
+      border-top: 1px solid rgba(0, 240, 255, 0.2);
+      padding: 6rem 3rem 3rem;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 5rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.25rem;
+      font-weight: 900;
+      color: var(--cyber-blue);
+      text-shadow: 0 0 25px var(--cyber-blue);
+      margin-bottom: 2rem;
+      letter-spacing: 3px;
+    }
+
+    .footer-logo::before {
+      content: '< ';
+      color: var(--neon-green);
+    }
+
+    .footer-logo::after {
+      content: ' />';
+      color: var(--neon-green);
+    }
+
+    .footer-desc {
+      color: rgba(255, 255, 255, 0.6);
+      line-height: 1.9;
+      margin-bottom: 2.5rem;
+      font-size: 1.05rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .social-links a {
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 240, 255, 0.05);
+      border: 1px solid var(--cyber-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--cyber-blue);
+      text-decoration: none;
+      transition: all 0.3s;
+      font-size: 1.25rem;
+    }
+
+    .social-links a:hover {
+      background: var(--cyber-blue);
+      color: var(--dark-bg);
+      box-shadow: 0 0 30px var(--cyber-blue);
+      transform: translateY(-5px);
+    }
+
+    .footer-section h4 {
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 2rem;
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+
+    .footer-section ul {
+      list-style: none;
+    }
+
+    .footer-section li {
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      transition: all 0.3s;
+      font-size: 0.95rem;
+    }
+
+    .footer-section a:hover {
+      color: var(--cyber-blue);
+      text-shadow: 0 0 10px var(--cyber-blue);
+      padding-left: 10px;
+    }
+
+    .footer-bottom {
+      padding-top: 3rem;
+      border-top: 1px solid rgba(0, 240, 255, 0.1);
+      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+    }
+
+    /* Scroll Reveal */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(60px);
+      transition: all 1s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .scroll-reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================
+       RESPONSIVE DESIGN - COMPLETE
+       ============================================ */
+
+    @media (max-width: 1400px) {
+      .hero h1 {
+        font-size: clamp(3rem, 7vw, 6rem);
+      }
+
+      h2 {
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+      }
+    }
+
+    @media (max-width: 1200px) {
+
+      .features-grid,
+      .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+      }
+
+      section {
+        padding: 8rem 2.5rem;
+      }
+
+      .hero {
+        padding: 7rem 2.5rem 5rem;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      header {
+        padding: 1.75rem 2.5rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .mobile-menu {
+        display: flex;
+      }
+
+      .header-cta {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.85rem;
+      }
+
+      .stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+      }
+
+      .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+      }
+
+      .testimonials-grid {
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 1.5rem 2rem;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .logo::before,
+      .logo::after {
+        content: '';
+      }
+
+      .header-cta {
+        font-size: 0.8rem;
+        padding: 0.65rem 1.25rem;
+        letter-spacing: 1px;
+      }
+
+      section {
+        padding: 6rem 2rem;
+      }
+
+      .hero {
+        padding: 5rem 2rem 4rem;
+      }
+
+      .hero-badge {
+        font-size: 0.75rem;
+        padding: 0.65rem 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 10vw, 4rem);
+        margin-bottom: 2rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+        white-space: normal;
+        animation: none;
+        border-right: none;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.15rem;
+        margin-bottom: 3rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-bottom: 4rem;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 1.25rem 2.5rem;
+        font-size: 0.95rem;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 2rem;
+      }
+
+      .stat-card {
+        padding: 2.5rem 2rem;
+      }
+
+      .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .stat-number {
+        font-size: 3.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.95rem;
+      }
+
+      .section-header {
+        margin-bottom: 4rem;
+      }
+
+      .section-tag {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 8vw, 3.5rem);
+        margin-bottom: 1.5rem;
+      }
+
+      .section-subtitle {
+        font-size: 1.15rem;
+        padding: 0 1rem;
+      }
+
+      .features-grid,
+      .pricing-grid,
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .feature-card,
+      .pricing-card,
+      .testimonial-card {
+        padding: 2.5rem;
+      }
+
+      .feature-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.65rem;
+        margin-bottom: 1rem;
+      }
+
+      .feature-card p {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .feature-list li {
+        font-size: 0.85rem;
+        padding: 0.65rem 0;
+      }
+
+      .terminal {
+        margin: 0 1rem;
+      }
+
+      .terminal-header {
+        padding: 1rem 1.25rem;
+      }
+
+      .terminal-dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .terminal-title {
+        font-size: 0.8rem;
+        margin-left: 0.75rem;
+      }
+
+      .terminal-body {
+        padding: 2rem 1.5rem;
+        font-size: 0.85rem;
+        line-height: 1.8;
+      }
+
+      .code-line {
+        margin-bottom: 0.5rem;
+      }
+
+      .pricing-card.featured {
+        transform: scale(1);
+        margin-top: 0;
+      }
+
+      .pricing-badge {
+        font-size: 0.7rem;
+        padding: 0.4rem 1.25rem;
+      }
+
+      .pricing-card h3 {
+        font-size: 1.75rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .pricing-price {
+        font-size: 4rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .pricing-period {
+        font-size: 1rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .pricing-features {
+        margin-bottom: 2.5rem;
+      }
+
+      .pricing-features li {
+        padding: 0.85rem 0;
+        font-size: 0.95rem;
+      }
+
+      .testimonial-card::before {
+        font-size: 6rem;
+        top: 1.5rem;
+        left: 1.5rem;
+      }
+
+      .testimonial-text {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        margin-bottom: 2rem;
+      }
+
+      .author-avatar {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+      }
+
+      .author-info h4 {
+        font-size: 1.1rem;
+      }
+
+      .author-info p {
+        font-size: 0.85rem;
+      }
+
+      .cta {
+        padding: 6rem 2rem;
+      }
+
+      .cta-box {
+        padding: 4rem 2.5rem;
+        clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 30px 100%, 0 calc(100% - 30px));
+      }
+
+      .cta-box::before {
+        width: 30px;
+        height: 30px;
+      }
+
+      .cta-box::after {
+        width: 30px;
+        height: 30px;
+      }
+
+      .cta h2 {
+        font-size: clamp(2rem, 8vw, 3rem);
+        margin-bottom: 1.5rem;
+      }
+
+      .cta p {
+        font-size: 1.15rem;
+        margin-bottom: 3rem;
+      }
+
+      footer {
+        padding: 5rem 2rem 2.5rem;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+      }
+
+      .footer-logo {
+        font-size: 1.85rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-desc {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .social-links a {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+      }
+
+      .footer-section h4 {
+        font-size: 1.05rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .footer-section li {
+        margin-bottom: 1rem;
+      }
+
+      .footer-section a {
+        font-size: 0.9rem;
+      }
+
+      .footer-bottom {
+        padding-top: 2.5rem;
+        font-size: 0.8rem;
+        line-height: 1.6;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .logo {
+        font-size: 1.1rem;
+        letter-spacing: 1.5px;
+      }
+
+      .header-cta {
+        font-size: 0.75rem;
+        padding: 0.6rem 1rem;
+      }
+
+      .header-cta i {
+        display: none;
+      }
+
+      section {
+        padding: 5rem 1.5rem;
+      }
+
+      .hero {
+        padding: 4rem 1.5rem 3rem;
+      }
+
+      .hero-badge {
+        font-size: 0.7rem;
+        padding: 0.6rem 1rem;
+        gap: 0.5rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(2rem, 12vw, 3rem);
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.95rem;
+      }
+
+      .hero p {
+        font-size: 1.05rem;
+        margin-bottom: 2.5rem;
+      }
+
+      .btn {
+        padding: 1.15rem 2rem;
+        font-size: 0.85rem;
+        letter-spacing: 1px;
+      }
+
+      .stats {
+        padding: 0 1.5rem;
+        gap: 1.5rem;
+      }
+
+      .stat-card {
+        padding: 2rem 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 3rem;
+      }
+
+      h2 {
+        font-size: clamp(1.75rem, 10vw, 2.75rem);
+      }
+
+      .section-subtitle {
+        font-size: 1.05rem;
+      }
+
+      .feature-card,
+      .pricing-card,
+      .testimonial-card {
+        padding: 2rem 1.75rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.5rem;
+      }
+
+      .terminal {
+        margin: 0;
+      }
+
+      .terminal-body {
+        padding: 1.75rem 1.25rem;
+        font-size: 0.75rem;
+        line-height: 1.7;
+      }
+
+      .pricing-price {
+        font-size: 3.5rem;
+      }
+
+      .testimonial-card::before {
+        font-size: 5rem;
+        top: 1rem;
+        left: 1rem;
+      }
+
+      .testimonial-text {
+        font-size: 1rem;
+      }
+
+      .cta-box {
+        padding: 3rem 2rem;
+      }
+
+      .cta h2 {
+        font-size: clamp(1.75rem, 10vw, 2.5rem);
+      }
+
+      .cta p {
+        font-size: 1.05rem;
+      }
+
+      .footer-logo {
+        font-size: 1.65rem;
+      }
+
+      .social-links {
+        gap: 1.25rem;
+      }
+
+      .social-links a {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 812px) and (orientation: landscape) {
+      .hero {
+        min-height: auto;
+        padding: 4rem 2rem;
+      }
+
+      section {
+        padding: 6rem 2rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .logo {
+        font-size: 1rem;
+      }
+
+      .hero h1 {
+        font-size: 1.85rem;
+      }
+
+      .hero-subtitle {
+        font-size: 0.85rem;
+      }
+
+      .hero p {
+        font-size: 0.95rem;
+      }
+
+      .btn {
+        padding: 1rem 1.75rem;
+        font-size: 0.8rem;
+      }
+
+      .stat-number {
+        font-size: 2.5rem;
+      }
+
+      .stat-label {
+        font-size: 0.85rem;
+      }
+
+      h2 {
+        font-size: 1.65rem;
+      }
+
+      .feature-card h3,
+      .pricing-card h3 {
+        font-size: 1.35rem;
+      }
+
+      .terminal-body {
+        padding: 1.5rem 1rem;
+        font-size: 0.7rem;
+      }
+
+      .pricing-price {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Background Effects -->
+  <div class="tech-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Content -->
+  <div class="content">
+    <!-- Header -->
+    <header>
+      <a href="#" class="logo">QUANTUMGRID</a>
+      <nav>
+        <a href="#features">FEATURES</a>
+        <a href="#pricing">PRICING</a>
+        <a href="#tech">TECHNOLOGY</a>
+        <a href="#testimonials">CLIENTS</a>
+      </nav>
+      <a href="#deploy" class="header-cta">
+        <i data-lucide="rocket"></i> Deploy Now
+      </a>
+      <div class="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <i data-lucide="zap"></i>
+          <span>Enterprise Cloud Platform</span>
+        </div>
+        <h1>
+          QUANTUM-SPEED<br>
+          <span class="gradient-text">DEPLOYMENTS</span>
+        </h1>
+        <div class="hero-subtitle">$ quantum deploy --production_</div>
+        <p>
+          Next-generation cloud infrastructure built for the future. Deploy applications 10x faster with AI-powered
+          optimization, intelligent auto-scaling, and military-grade security protocols.
+        </p>
+        <div class="hero-buttons">
+          <a href="#deploy" class="btn btn-primary">
+            <i data-lucide="terminal"></i> Start Deploying
+          </a>
+          <a href="#tech" class="btn btn-secondary">
+            <i data-lucide="book-open"></i> View Documentation
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card scroll-reveal">
+        <div class="stat-icon">
+          <i data-lucide="server"></i>
+        </div>
+        <div class="stat-number">99.99%</div>
+        <div class="stat-label">Uptime SLA</div>
+      </div>
+      <div class="stat-card scroll-reveal">
+        <div class="stat-icon">
+          <i data-lucide="gauge"></i>
+        </div>
+        <div class="stat-number">&lt;50ms</div>
+        <div class="stat-label">Global Latency</div>
+      </div>
+      <div class="stat-card scroll-reveal">
+        <div class="stat-icon">
+          <i data-lucide="rocket"></i>
+        </div>
+        <div class="stat-number">10x</div>
+        <div class="stat-label">Faster Deploy</div>
+      </div>
+      <div class="stat-card scroll-reveal">
+        <div class="stat-icon">
+          <i data-lucide="lock"></i>
+        </div>
+        <div class="stat-number">256-bit</div>
+        <div class="stat-label">Encryption</div>
+      </div>
+    </div>
+
+    <!-- Features -->
+    <section id="features">
+      <div class="section-header scroll-reveal">
+        <div class="section-tag">Core Features</div>
+        <h2>Built for <span class="gradient-text">Performance</span></h2>
+        <p class="section-subtitle">
+          Cutting-edge technology stack engineered for maximum efficiency, scalability, and reliability in production
+          environments.
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="zap"></i>
+          </div>
+          <h3>Quantum Deploy</h3>
+          <p>Deploy applications in seconds with our revolutionary deployment pipeline. Zero-downtime guaranteed.</p>
+          <ul class="feature-list">
+            <li>Instant rollbacks</li>
+            <li>Blue-green deployments</li>
+            <li>Canary releases</li>
+          </ul>
+        </div>
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="brain"></i>
+          </div>
+          <h3>AI Optimization</h3>
+          <p>Machine learning algorithms automatically optimize infrastructure for performance and cost.</p>
+          <ul class="feature-list">
+            <li>Auto resource allocation</li>
+            <li>Predictive scaling</li>
+            <li>Cost optimization</li>
+          </ul>
+        </div>
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="shield"></i>
+          </div>
+          <h3>Military-Grade Security</h3>
+          <p>256-bit encryption, DDoS protection, and automated threat detection built-in.</p>
+          <ul class="feature-list">
+            <li>SOC 2 compliance</li>
+            <li>HIPAA certified</li>
+            <li>GDPR compliant</li>
+          </ul>
+        </div>
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="maximize"></i>
+          </div>
+          <h3>Auto-Scaling</h3>
+          <p>Intelligent auto-scaling adapts to traffic patterns in real-time. Pay only for what you use.</p>
+          <ul class="feature-list">
+            <li>Traffic prediction</li>
+            <li>Load balancing</li>
+            <li>Resource optimization</li>
+          </ul>
+        </div>
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="globe"></i>
+          </div>
+          <h3>Global Edge Network</h3>
+          <p>200+ edge locations worldwide ensure sub-50ms latency anywhere on Earth.</p>
+          <ul class="feature-list">
+            <li>CDN integration</li>
+            <li>Automatic failover</li>
+            <li>Geo-routing</li>
+          </ul>
+        </div>
+        <div class="feature-card scroll-reveal">
+          <div class="feature-icon">
+            <i data-lucide="trending-up"></i>
+          </div>
+          <h3>Real-Time Analytics</h3>
+          <p>Monitor every metric with customizable dashboards and AI-powered insights.</p>
+          <ul class="feature-list">
+            <li>Custom dashboards</li>
+            <li>Alert system</li>
+            <li>Performance metrics</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Demo -->
+    <section id="tech">
+      <div class="section-header scroll-reveal">
+        <div class="section-tag">Technology</div>
+        <h2>Deploy in <span class="gradient-text">3 Commands</span></h2>
+        <p class="section-subtitle">
+          Simple CLI commands to deploy production-ready applications with enterprise-grade infrastructure.
+        </p>
+      </div>
+      <div class="terminal-section">
+        <div class="terminal scroll-reveal">
+          <div class="terminal-header">
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <div class="terminal-dot"></div>
+            <span class="terminal-title">quantum-cli v2.0.1</span>
+          </div>
+          <div class="terminal-body">
+            <div class="code-line"><span class="code-comment"># Step 1: Initialize your project</span></div>
+            <div class="code-line"><span class="code-keyword">quantum</span> init my-application</div>
+            <div class="code-line"><span class="code-success">✓ Project initialized successfully</span></div>
+            <div class="code-line" style="margin-top: 2rem;"><span class="code-comment"># Step 2: Configure deployment
+                settings</span></div>
+            <div class="code-line"><span class="code-keyword">quantum</span> config <span
+                class="code-string">--region=global</span> <span class="code-string">--scale=auto</span> <span
+                class="code-string">--tier=enterprise</span></div>
+            <div class="code-line"><span class="code-success">✓ Configuration saved</span></div>
+            <div class="code-line" style="margin-top: 2rem;"><span class="code-comment"># Step 3: Deploy to
+                production</span></div>
+            <div class="code-line"><span class="code-keyword">quantum</span> deploy <span
+                class="code-string">--production</span></div>
+            <div class="code-line" style="margin-top: 1rem;"><span class="code-success">✓ Building application...</span>
+            </div>
+            <div class="code-line"><span class="code-success">✓ Deploying to 200+ edge locations...</span></div>
+            <div class="code-line"><span class="code-success">✓ SSL certificates configured</span></div>
+            <div class="code-line"><span class="code-success">✓ Deployed successfully in 2.3 seconds</span></div>
+            <div class="code-line" style="margin-top: 1rem;"><span class="code-url">→
+                https://my-application.quantum.cloud</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing">
+      <div class="section-header scroll-reveal">
+        <div class="section-tag">Pricing</div>
+        <h2>Choose Your <span class="gradient-text">Power Level</span></h2>
+        <p class="section-subtitle">
+          Flexible pricing plans designed to scale with your business needs. Start free, upgrade anytime.
+        </p>
+      </div>
+      <div class="pricing-grid">
+        <div class="pricing-card scroll-reveal">
+          <h3>Starter</h3>
+          <div class="pricing-price">$29</div>
+          <div class="pricing-period">/month</div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check"></i> 10 Applications</li>
+            <li><i data-lucide="check"></i> 100GB Bandwidth</li>
+            <li><i data-lucide="check"></i> Basic Support</li>
+            <li><i data-lucide="check"></i> SSL Certificates</li>
+            <li><i data-lucide="check"></i> Auto-scaling</li>
+          </ul>
+          <a href="#deploy" class="btn btn-secondary" style="width: 100%;">
+            Get Started
+          </a>
+        </div>
+        <div class="pricing-card featured scroll-reveal">
+          <div class="pricing-badge">MOST POPULAR</div>
+          <h3>Professional</h3>
+          <div class="pricing-price">$99</div>
+          <div class="pricing-period">/month</div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check"></i> Unlimited Applications</li>
+            <li><i data-lucide="check"></i> 1TB Bandwidth</li>
+            <li><i data-lucide="check"></i> Priority Support</li>
+            <li><i data-lucide="check"></i> Advanced Analytics</li>
+            <li><i data-lucide="check"></i> AI Optimization</li>
+            <li><i data-lucide="check"></i> Custom Domains</li>
+          </ul>
+          <a href="#deploy" class="btn btn-primary" style="width: 100%;">
+            Get Started
+          </a>
+        </div>
+        <div class="pricing-card scroll-reveal">
+          <h3>Enterprise</h3>
+          <div class="pricing-price" style="font-size: 3.5rem;">Custom</div>
+          <div class="pricing-period">/month</div>
+          <ul class="pricing-features">
+            <li><i data-lucide="check"></i> Everything in Pro</li>
+            <li><i data-lucide="check"></i> Unlimited Bandwidth</li>
+            <li><i data-lucide="check"></i> Dedicated Support</li>
+            <li><i data-lucide="check"></i> SLA Guarantee</li>
+            <li><i data-lucide="check"></i> On-premise Option</li>
+            <li><i data-lucide="check"></i> Custom Integration</li>
+          </ul>
+          <a href="#deploy" class="btn btn-secondary" style="width: 100%;">
+            Contact Sales
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials">
+      <div class="section-header scroll-reveal">
+        <div class="section-tag">Testimonials</div>
+        <h2>Trusted by <span class="gradient-text">Industry Leaders</span></h2>
+        <p class="section-subtitle">
+          Join 50,000+ developers and companies building the future with QuantumGrid infrastructure.
+        </p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card scroll-reveal">
+          <p class="testimonial-text">
+            "QuantumGrid reduced our deployment time from 45 minutes to under 3 seconds. The auto-scaling is incredible
+            and has saved us thousands in infrastructure costs."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">SK</div>
+            <div class="author-info">
+              <h4>Sarah Kim</h4>
+              <p>CTO @ TechCorp Industries</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card scroll-reveal">
+          <p class="testimonial-text">
+            "The AI-powered optimization has been a game changer. Our infrastructure costs dropped by 60% while
+            performance improved dramatically. Absolutely revolutionary."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">MJ</div>
+            <div class="author-info">
+              <h4>Marcus Johnson</h4>
+              <p>Lead DevOps @ CloudScale</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card scroll-reveal">
+          <p class="testimonial-text">
+            "Best cloud platform we've ever used. The global edge network ensures our users get sub-50ms latency
+            worldwide. Customer support is phenomenal."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">RP</div>
+            <div class="author-info">
+              <h4>Rachel Park</h4>
+              <p>Engineering Director @ StartupX</p>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card scroll-reveal">
+          <p class="testimonial-text">
+            "Security was our top concern and QuantumGrid exceeded all expectations. SOC 2 compliance, military-grade
+            encryption, and automatic threat detection built-in."
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">DL</div>
+            <div class="author-info">
+              <h4>David Lee</h4>
+              <p>Security Officer @ FinTech Solutions</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section id="deploy" class="cta">
+      <div class="cta-box scroll-reveal">
+        <h2>Ready to <span class="gradient-text">Deploy</span>?</h2>
+        <p>
+          Join 50,000+ developers building the future with QuantumGrid. Start your free trial today and experience
+          quantum-speed deployments with enterprise-grade infrastructure.
+        </p>
+        <div class="hero-buttons">
+          <a href="#" class="btn btn-primary">
+            <i data-lucide="rocket"></i> Start Free Trial
+          </a>
+          <a href="#" class="btn btn-secondary">
+            <i data-lucide="phone"></i> Contact Sales
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div>
+          <div class="footer-logo">QUANTUMGRID</div>
+          <p class="footer-desc">
+            Next-generation cloud infrastructure platform built for developers who demand speed, security, and
+            scalability. Deploy at quantum speed.
+          </p>
+          <div class="social-links">
+            <a href="#"><i data-lucide="github"></i></a>
+            <a href="#"><i data-lucide="twitter"></i></a>
+            <a href="#"><i data-lucide="linkedin"></i></a>
+            <a href="#"><i data-lucide="message-square"></i></a>
+          </div>
+        </div>
+        <div class="footer-section">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#tech">Technology</a></li>
+            <li><a href="#">Integrations</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press Kit</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">Tutorials</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">Status</a></li>
+            <li><a href="#">Support</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 QuantumGrid. All rights reserved. | Built with quantum technology. | SOC 2 Type II Certified</p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    lucide.createIcons();
+    // Scroll reveal animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>
