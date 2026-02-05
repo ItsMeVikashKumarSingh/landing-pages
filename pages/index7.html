@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garuda Gaming | Next-Gen Esports</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            /* LIGHT THEME (DEFAULT) */
+            --bg-main: #f0f2f5;
+            --neon-purple: #7c3aed;
+            --neon-gold: #d97706;
+            --text-main: #1a202c;
+            --text-dim: #4a5568;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(124, 58, 237, 0.2);
+            --card-shadow: rgba(0, 0, 0, 0.1);
+            --cursor-bg: #d97706;
+            --cursor-border: #7c3aed;
+        }
+
+        body.dark-mode {
+            /* DARK THEME (IMPROVED VISIBILITY) */
+            --bg-main: #09090b;
+            /* Soft black */
+            --neon-purple: #d8b4fe;
+            /* Lighter purple for contrast */
+            --neon-gold: #fcd34d;
+            /* Bright amber */
+            --text-main: #f8fafc;
+            /* Near white */
+            --text-dim: #cbd5e1;
+            /* Lighter gray */
+            --glass-bg: rgba(0, 0, 0, 0.7);
+            /* Darker glass for readability */
+            --glass-border: rgba(216, 180, 254, 0.3);
+            /* Lighter border */
+            --card-shadow: rgba(0, 0, 0, 0.8);
+            --cursor-bg: #fcd34d;
+            --cursor-border: #d8b4fe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* cursor: none; Removed to fix visibility issue */
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+            cursor: none;
+            /* Custom cursor active */
+        }
+
+        a,
+        button,
+        .theme-toggle,
+        .hex-item,
+        .tilt-card {
+            cursor: pointer;
+            /* Ensure clickables have pointers */
+        }
+
+        /* --- CUSTOM CURSOR --- */
+        .cursor-dot,
+        .cursor-outline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--cursor-bg);
+        }
+
+        .cursor-outline {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--cursor-border);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+        }
+
+        /* --- BACKGROUND CANVAS --- */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.8;
+            /* Increased for better visibility */
+            pointer-events: none;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .glitch-text {
+            position: relative;
+            animation: none;
+            /* Stabilized per user request */
+        }
+
+        /* Hover animation removed for stability */
+
+        @keyframes glitch-skew {
+            0% {
+                transform: skew(0deg);
+            }
+
+            5% {
+                transform: skew(0deg);
+            }
+
+            6% {
+                transform: skew(-20deg);
+            }
+
+            7% {
+                transform: skew(0deg);
+            }
+
+            90% {
+                transform: skew(0deg);
+            }
+
+            91% {
+                transform: skew(10deg);
+            }
+
+            92% {
+                transform: skew(0deg);
+            }
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            margin: 8rem 0 4rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-main);
+            text-shadow: 0 0 10px rgba(176, 38, 255, 0.5);
+        }
+
+        .section-header .line {
+            height: 1px;
+            flex: 1;
+            background: linear-gradient(90deg, var(--neon-purple), transparent);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .hero h1 {
+            font-size: clamp(4rem, 10vw, 8rem);
+            font-weight: 900;
+            line-height: 0.9;
+            background: linear-gradient(to right, var(--text-main), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--neon-gold);
+            letter-spacing: 4px;
+            margin-bottom: 3rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+
+        /* --- BUTTONS --- */
+        .btn-neon {
+            padding: 1.25rem 3rem;
+            background: transparent;
+            color: var(--neon-purple);
+            border: 1px solid var(--neon-purple);
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            display: inline-block;
+            cursor: pointer;
+            /* Inherit none */
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+        }
+
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(176, 38, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .btn-neon:hover {
+            box-shadow: 0 0 30px rgba(176, 38, 255, 0.4);
+            color: var(--text-main);
+            background: rgba(176, 38, 255, 0.1);
+        }
+
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+
+        /* --- CARDS (3D TILT) --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            perspective: 1000px;
+        }
+
+        .tilt-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 3rem;
+            border-radius: 4px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+            box-shadow: 0 4px 6px var(--card-shadow);
+        }
+
+        .tilt-card:hover {
+            border-color: var(--neon-gold);
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.1);
+        }
+
+        .card-icon {
+            font-size: 3rem;
+            color: var(--neon-gold);
+            margin-bottom: 1.5rem;
+            transform: translateZ(20px);
+        }
+
+        .tilt-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            transform: translateZ(30px);
+        }
+
+        .tilt-card p {
+            color: var(--text-dim);
+            line-height: 1.6;
+            font-size: 1.1rem;
+            transform: translateZ(20px);
+        }
+
+        .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(57, 255, 20, 0.1);
+            color: #39ff14;
+            padding: 0.25rem 0.75rem;
+            border: 1px solid #39ff14;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        /* --- WHY US (HEX GRID) --- */
+        .hex-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .hex-item {
+            width: 300px;
+            height: 340px;
+            background: var(--glass-bg);
+            position: relative;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s, background 0.3s;
+            border: 1px solid rgba(176, 38, 255, 0.1);
+            /* Fallback border */
+            box-shadow: 0 4px 6px var(--card-shadow);
+        }
+
+        .hex-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(45deg, var(--neon-purple), transparent);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .hex-item:hover {
+            transform: scale(1.05);
+            background: rgba(176, 38, 255, 0.05);
+        }
+
+        .hex-item:hover::before {
+            opacity: 0.1;
+        }
+
+        .hex-icon {
+            color: var(--neon-purple);
+            margin-bottom: 1rem;
+        }
+
+        .hex-item:hover .hex-icon {
+            color: var(--neon-gold);
+        }
+
+        .hex-item h4 {
+            color: var(--text-main);
+            font-size: 1.5rem;
+        }
+
+        /* --- HALL OF FAME (SLIDER) --- */
+        .hall-of-fame {
+            overflow-x: auto;
+            display: flex;
+            gap: 2rem;
+            padding-bottom: 2rem;
+            scrollbar-width: thin;
+            scrollbar-color: var(--neon-purple) var(--bg-main);
+        }
+
+        .hall-card {
+            min-width: 400px;
+            background: linear-gradient(135deg, rgba(218, 165, 32, 0.05), transparent);
+            border: 1px solid rgba(218, 165, 32, 0.3);
+            border-radius: 4px;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .hall-card h3 {
+            color: var(--neon-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .record-stat {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1;
+            margin: 1rem 0;
+            font-family: 'Orbitron';
+        }
+
+        /* --- WAR ROOM (EVENTS) --- */
+        .event-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--glass-bg);
+            border-left: 4px solid var(--neon-purple);
+            padding: 2rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+            box-shadow: 0 2px 4px var(--card-shadow);
+        }
+
+        .event-row:hover {
+            transform: translateX(10px);
+            background: rgba(176, 38, 255, 0.05);
+        }
+
+        .event-date {
+            font-family: 'Orbitron';
+            color: var(--neon-gold);
+            font-size: 1.2rem;
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .event-row h3 {
+            color: var(--text-main);
+        }
+
+        .countdown {
+            font-family: 'monospace';
+            color: var(--text-main);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        body.light-mode .countdown {
+            background: #e2e8f0;
+            color: #1a202c;
+            border: 1px solid #cbd5e0;
+        }
+
+        /* --- UPLINK (CONTACT) --- */
+        .terminal-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--neon-purple);
+            padding: 3rem;
+            font-family: 'monospace';
+        }
+
+        body.light-mode .terminal-form {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--neon-purple);
+            color: #1a202c;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+        }
+
+        .input-group label {
+            display: block;
+            color: var(--neon-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .terminal-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #333;
+            color: var(--text-main);
+            font-family: 'monospace';
+            font-size: 1.2rem;
+            padding: 0.5rem 0;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .terminal-input:focus {
+            border-bottom-color: var(--neon-purple);
+        }
+
+        /* --- STATS SECTION --- */
+        .stats-ticker {
+            display: flex;
+            justify-content: space-between;
+            background: linear-gradient(90deg, transparent, rgba(176, 38, 255, 0.1), transparent);
+            padding: 2rem;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            margin-top: 5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron';
+            font-size: 3rem;
+            color: var(--text-main);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            color: var(--neon-purple);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 8rem;
+            border-top: 1px solid var(--glass-border);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+
+            .cards-grid,
+            .hex-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .event-row {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+                border-left: none;
+                border-top: 4px solid var(--neon-purple);
+            }
+
+            .stats-ticker {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .cursor-dot,
+            .cursor-outline {
+                display: none;
+            }
+
+            * {
+                cursor: auto;
+            }
+
+            .hall-card {
+                min-width: 100%;
+            }
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem;
+            border: 1px solid var(--text-dim);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+            color: var(--text-main);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--neon-gold);
+            color: var(--neon-gold);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <!-- CANVAS BACKGROUND -->
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container">
+
+        <!-- NAV -->
+        <nav style="padding: 2rem 0; display: flex; justify-content: space-between; align-items: center;">
+            <div style="font-family: 'Orbitron'; font-weight: 900; font-size: 1.5rem; color: var(--text-main);">
+                GARUDA<span style="color: var(--neon-purple)">.GG</span>
+            </div>
+            <div style="display: flex; gap: 1.5rem; align-items: center;">
+                <div class="theme-toggle" id="themeBtn" title="Toggle Light/Dark Mode">
+                    <i data-lucide="sun"></i>
+                </div>
+                <a href="../index.html"
+                    style="color: var(--text-dim); text-decoration: none; font-weight: 600; letter-spacing: 1px; transition: 0.3s;">
+                    EXIT_LOBBY
+                </a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero">
+            <h1 class="glitch-text" data-text="UNLEASH POTENTIAL">UNLEASH<br>POTENTIAL</h1>
+            <p>NEXT-GEN ESPORTS ECOSYSTEM</p>
+            <a href="#uplink" class="btn-neon magnetic">INITIALIZE LINK</a>
+        </section>
+
+        <!-- TOURNAMENTS -->
+        <div class="section-header">
+            <h2>Live Operations</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="cards-grid">
+            <div class="tilt-card">
+                <div class="status-badge">LIVE</div>
+                <div class="card-icon"><i data-lucide="crosshair"></i></div>
+                <h3>Valorant Elite</h3>
+                <p>Regional qualifiers now open. Prize pool: ₹5,00,000. Squad up and dominate the server.</p>
+            </div>
+            <div class="tilt-card">
+                <div class="status-badge">REGISTER</div>
+                <div class="card-icon"><i data-lucide="swords"></i></div>
+                <h3>Battlegrounds</h3>
+                <p>The ultimate survival challenge. Solo and Squad modes available. Drop in, gear up, win.</p>
+            </div>
+            <div class="tilt-card">
+                <div class="status-badge" style="color: var(--neon-gold); border-color: var(--neon-gold);">FINALS</div>
+                <div class="card-icon"><i data-lucide="trophy"></i></div>
+                <h3>Garuda Cup</h3>
+                <p>The championship of champions. Watch the top teams from India battle for glory.</p>
+            </div>
+        </div>
+
+        <!-- WHY US -->
+        <div class="section-header">
+            <h2>Why Garuda</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="hex-grid">
+            <div class="hex-item">
+                <div class="hex-icon"><i data-lucide="zap" size="48"></i></div>
+                <h4>Zero Latency</h4>
+                <p style="margin-top: 1rem; color: var(--text-dim);">Optimized routing for Indian ISPs ensuring sub-10ms
+                    ping to all major game servers.</p>
+            </div>
+            <div class="hex-item">
+                <div class="hex-icon"><i data-lucide="users" size="48"></i></div>
+                <h4>Elite Community</h4>
+                <p style="margin-top: 1rem; color: var(--text-dim);">Strict vetting process. Play with serious
+                    competitors, not trolls.</p>
+            </div>
+            <div class="hex-item">
+                <div class="hex-icon"><i data-lucide="brain-circuit" size="48"></i></div>
+                <h4>Pro Coaching</h4>
+                <p style="margin-top: 1rem; color: var(--text-dim);">AI-driven analysis of your gameplay to identify
+                    weaknesses and meta strategies.</p>
+            </div>
+        </div>
+
+        <!-- OLD RECORDS (HALL OF FAME) -->
+        <div class="section-header">
+            <h2>Hall of Fame</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="hall-of-fame magnetic-scroll">
+            <div class="hall-card">
+                <h3>Vajra Strike Team</h3>
+                <p style="color: var(--text-dim);">Valorant Season 4 Champions</p>
+                <div class="record-stat">26-0</div>
+                <p>Perfect Season Record</p>
+            </div>
+            <div class="hall-card">
+                <h3>SniperKing_99</h3>
+                <p style="color: var(--text-dim);">CS2 Invitational MVP</p>
+                <div class="record-stat">82%</div>
+                <p>Headshot Accuracy</p>
+            </div>
+            <div class="hall-card">
+                <h3>Team Agni</h3>
+                <p style="color: var(--text-dim);">BGMI Rumble Winners</p>
+                <div class="record-stat">42</div>
+                <p>Total Squad Kills (Finals)</p>
+            </div>
+        </div>
+
+        <!-- WAR ROOM (EVENTS) -->
+        <div class="section-header">
+            <h2>War Room</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="event-row">
+            <div class="event-date">
+                <div style="font-size: 2rem; font-weight: 700;">12</div>
+                <div>AUG</div>
+            </div>
+            <div style="flex: 1; padding: 0 2rem;">
+                <h3>Neon City Showdown</h3>
+                <p style="color: var(--text-dim);">Cyberpunk 2077 Speedrun Challenge</p>
+            </div>
+            <div class="countdown" data-time="2026-08-12">04d 12h 30m</div>
+            <button class="btn-neon magnetic"
+                style="padding: 0.5rem 1.5rem; margin-left: 2rem; font-size: 0.8rem;">REMIND ME</button>
+        </div>
+
+        <div class="event-row">
+            <div class="event-date">
+                <div style="font-size: 2rem; font-weight: 700;">28</div>
+                <div>AUG</div>
+            </div>
+            <div style="flex: 1; padding: 0 2rem;">
+                <h3>Apex Legends: Void Walker</h3>
+                <p style="color: var(--text-dim);">Trios Tournament - Map: Olympus</p>
+            </div>
+            <div class="countdown" data-time="2026-08-28">20d 05h 15m</div>
+            <button class="btn-neon magnetic"
+                style="padding: 0.5rem 1.5rem; margin-left: 2rem; font-size: 0.8rem;">REMIND ME</button>
+        </div>
+
+        <!-- CONTACT (UPLINK) -->
+        <div class="section-header" id="uplink">
+            <h2>Establish Uplink</h2>
+            <div class="line"></div>
+        </div>
+
+        <div class="terminal-form">
+            <div style="color: var(--neon-purple); margin-bottom: 2rem;">
+                > SYSTEM_READY<br>
+                > INITIATING SECURE CONNECTION...
+            </div>
+            <form>
+                <div class="input-group">
+                    <label>> IDENTIFIER (NAME)</label>
+                    <input type="text" class="terminal-input" placeholder="_">
+                </div>
+                <div class="input-group">
+                    <label>> FREQUENCY (EMAIL)</label>
+                    <input type="email" class="terminal-input" placeholder="_">
+                </div>
+                <div class="input-group">
+                    <label>> TRANSMISSION (MESSAGE)</label>
+                    <input type="text" class="terminal-input" placeholder="_">
+                </div>
+                <button type="submit" class="btn-neon magnetic" style="width: 100%; margin-top: 1rem;">SEND
+                    PACKET</button>
+            </form>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats-ticker">
+            <div class="stat-item">
+                <div class="stat-value">12K+</div>
+                <div class="stat-label">Agents Online</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">850</div>
+                <div class="stat-label">Active Matches</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">₹10M+</div>
+                <div class="stat-label">Prize Pool Distributed</div>
+            </div>
+        </div>
+
+        <footer>
+            <div style="margin-bottom: 2rem; color: var(--text-dim); font-size: 0.9rem;">
+                SPONSORED BY
+            </div>
+            <div
+                style="display: flex; justify-content: center; gap: 3rem; opacity: 0.5; margin-bottom: 4rem; flex-wrap: wrap;">
+                <i data-lucide="cpu" size="32"></i>
+                <i data-lucide="wifi" size="32"></i>
+                <i data-lucide="headphones" size="32"></i>
+                <i data-lucide="monitor" size="32"></i>
+            </div>
+            <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;">
+                &copy; 2026 Garuda Gaming. All Rights Reserved. <br>
+                Game trademarks property of their respective owners.
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+
+        /* --- THEME TOGGLE --- */
+        const themeBtn = document.getElementById('themeBtn');
+        // Removed themeIcon const as it gets replaced
+
+        // Default to light if no config
+        let isDarkConfig = localStorage.getItem('garudaTheme') === 'dark';
+        let particles = []; // Hoisted for applyTheme access
+
+        function applyTheme(isDark) {
+            if (isDark) {
+                document.body.classList.add('dark-mode');
+                themeBtn.innerHTML = '<i data-lucide="sun"></i>';
+            } else {
+                document.body.classList.remove('dark-mode');
+                themeBtn.innerHTML = '<i data-lucide="moon"></i>';
+            }
+            lucide.createIcons();
+
+            // Adjust Particle Colors
+            if (particles.length > 0) {
+                particles.forEach(p => {
+                    p.color = Math.random() > 0.5
+                        ? (isDark ? '#d8b4fe' : '#7c3aed')
+                        : (isDark ? '#fcd34d' : '#d97706');
+                });
+            }
+        }
+
+        // Init Theme
+        applyTheme(isDarkConfig);
+
+        themeBtn.addEventListener('click', () => {
+            isDarkConfig = !isDarkConfig;
+            localStorage.setItem('garudaTheme', isDarkConfig ? 'dark' : 'light');
+            applyTheme(isDarkConfig);
+        });
+
+        /* --- MOUSE TRAIL & MAGNETIC EFFECT --- */
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Instant dot movement
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Smooth outline movement with LERP
+        function animateCursor() {
+            const dt = 1.0 - Math.pow(1.0 - 0.2, 1); // Lerp factor 0.2
+
+            cursorX += (mouseX - cursorX) * 0.2;
+            cursorY += (mouseY - cursorY) * 0.2;
+
+            cursorOutline.style.left = `${cursorX}px`;
+            cursorOutline.style.top = `${cursorY}px`;
+
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // Magnetic Buttons
+        const btns = document.querySelectorAll('.magnetic');
+        btns.forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0, 0)';
+            });
+        });
+
+        /* --- 3D TILT EFFECT --- */
+        const cards = document.querySelectorAll('.tilt-card, .hex-item');
+
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        /* --- PARTICLE BACKGROUND --- */
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // let particles = []; // Moved to top
+        const particleCount = 50;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.color = Math.random() > 0.5
+                    ? (isDarkConfig ? '#d8b4fe' : '#7c3aed') // Lighter purple in Dark
+                    : (isDarkConfig ? '#fcd34d' : '#d97706'); // Bright amber in Dark
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+                // Respawn
+                if (particles[i].size <= 0.2) {
+                    particles.splice(i, 1);
+                    particles.push(new Particle());
+                }
+            }
+            // Connect
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particles.length; a++) {
+                for (let b = a; b < particles.length; b++) {
+                    let dx = particles[a].x - particles[b].x;
+                    let dy = particles[a].y - particles[b].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 150) {
+                        ctx.strokeStyle = isDarkConfig ? 'rgba(216, 180, 254, 0.25)' : 'rgba(124, 58, 237, 0.1)';
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[a].x, particles[a].y);
+                        ctx.lineTo(particles[b].x, particles[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        initParticles();
+        animateParticles();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+    </script>
+</body>
+
+</html>

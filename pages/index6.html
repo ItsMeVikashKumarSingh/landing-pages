@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aakash Cloud | SkyGlass Edition</title>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-highlight: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+            --text-muted: rgba(255, 255, 255, 0.7);
+            --accent-glow: #00f2ea;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #000;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- VIBRANT ANIMATED BACKGROUND --- */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(100px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float-orb 20s infinite alternate ease-in-out;
+        }
+
+        .orb-1 {
+            top: -10%;
+            left: -10%;
+            width: 50vw;
+            height: 50vw;
+            background: radial-gradient(circle, #4f46e5, #0f172a);
+        }
+
+        .orb-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, #ec4899, #7c3aed);
+            animation-duration: 25s;
+        }
+
+        .orb-3 {
+            top: 40%;
+            left: 40%;
+            width: 30vw;
+            height: 30vw;
+            background: radial-gradient(circle, #00f2ea, #0ea5e9);
+            animation-duration: 15s;
+        }
+
+        @keyframes float-orb {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            100% {
+                transform: translate(50px, 50px) scale(1.1);
+            }
+        }
+
+        /* --- GLASS UTILITIES --- */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-top: 1px solid var(--glass-highlight);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 24px;
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            padding: 0.75rem 1.5rem;
+            border-radius: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .btn-glass {
+            padding: 0.5rem 1.25rem;
+            border-radius: 100px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s;
+        }
+
+        .btn-glass:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 15px var(--accent-glow);
+            border-color: var(--accent-glow);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            position: relative;
+        }
+
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--accent-glow);
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to bottom, #ffffff, rgba(255, 255, 255, 0.5));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* --- FEATURES GRID --- */
+        .features {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--accent-glow);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            line-height: 1.6;
+            color: var(--text-muted);
+        }
+
+        /* --- FLOATING STATS --- */
+        .floating-container {
+            position: relative;
+            height: 400px;
+            max-width: 1000px;
+            margin: 4rem auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .stat-circle {
+            width: 15rem;
+            height: 15rem;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-label {
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            color: var(--accent-glow);
+        }
+
+        /* --- PRICING SECTION --- */
+        .pricing {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            /* Overlapping effect */
+            align-items: center;
+        }
+
+        .price-card {
+            padding: 3rem;
+            text-align: center;
+            opacity: 0.8;
+            transform: scale(0.9);
+            z-index: 1;
+        }
+
+        .price-card.featured {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-glow);
+            box-shadow: 0 0 50px rgba(0, 242, 234, 0.1);
+            opacity: 1;
+            transform: scale(1.05);
+            z-index: 10;
+            position: relative;
+        }
+
+        .price-amount {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 1rem 0;
+            color: #fff;
+        }
+
+        .price-list {
+            list-style: none;
+            margin: 2rem 0;
+            text-align: left;
+        }
+
+        .price-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 4rem;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .pricing-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .price-card {
+                transform: scale(1);
+                opacity: 1;
+                z-index: 1;
+            }
+
+            .price-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+
+            nav {
+                width: 95%;
+                padding: 0.75rem 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            /* Simplified mobile nav for demo */
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- Navigation -->
+    <nav class="glass-panel">
+        <div class="logo">
+            <i data-lucide="cloud" style="color: var(--accent-glow);"></i> SkyGlass
+        </div>
+        <div class="nav-links">
+            <a href="#">Solutions</a>
+            <a href="#">Pricing</a>
+            <a href="#">Documentation</a>
+        </div>
+        <a href="#" class="btn-glass">Sign In</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="tag-pill">
+                <i data-lucide="sparkles" size="14"></i>
+                <span>Introducing Aakash Cloud v2.0</span>
+            </div>
+            <h1>
+                Infrastructure<br>
+                Reinvisioned
+            </h1>
+            <p>
+                Experience the future of cloud computing. Zero latency, infinite scalability, and military-grade
+                encryption wrapped in a pure glass interface.
+            </p>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="#" class="btn-glass"
+                    style="background: var(--accent-glow); color: #000; border-color: var(--accent-glow);">
+                    Start Building <i data-lucide="arrow-right" size="16" style="margin-left:5px;"></i>
+                </a>
+                <a href="#" class="btn-glass">View Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Stats Interlude -->
+    <div class="floating-container">
+        <div class="glass-card stat-circle" style="animation: float-card 6s ease-in-out infinite;">
+            <span class="stat-number">15ms</span>
+            <span class="stat-label">Global Latency</span>
+        </div>
+        <!-- Decorative abstract glass shards behind -->
+        <div class="glass-card"
+            style="position: absolute; width: 300px; height: 150px; transform: rotate(-10deg) translate(-150px, 50px); opacity: 0.5; z-index: 1;">
+        </div>
+        <div class="glass-card"
+            style="position: absolute; width: 200px; height: 200px; transform: rotate(15deg) translate(150px, -50px); opacity: 0.5; z-index: 1;">
+        </div>
+    </div>
+
+    <!-- Features Grid -->
+    <section class="features">
+        <div class="glass-card">
+            <div class="feature-icon-box">
+                <i data-lucide="infinity"></i>
+            </div>
+            <h3>Infinite Scaling</h3>
+            <p>Automatically expands to handle any traffic spike. Pay only for exactly what you use, down to the
+                millisecond.</p>
+        </div>
+        <div class="glass-card">
+            <div class="feature-icon-box">
+                <i data-lucide="shield-check"></i>
+            </div>
+            <h3>Data Sovereignty</h3>
+            <p>100% compliant with Indian Data Localization laws. Your data never leaves the encrypted Mumbai-1 region.
+            </p>
+        </div>
+        <div class="glass-card">
+            <div class="feature-icon-box">
+                <i data-lucide="zap"></i>
+            </div>
+            <h3>Edge Velocity</h3>
+            <p>Deploy your application to 200+ edge locations instantly. Bring your code closer to your users.</p>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing">
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <h2>Transparent Pricing</h2>
+            <p style="color: var(--text-muted);">No hidden fees. No surprises.</p>
+        </div>
+        <div class="pricing-grid">
+            <!-- Basic -->
+            <div class="glass-card price-card">
+                <h3>Starter</h3>
+                <div class="price-amount">₹499</div>
+                <ul class="price-list">
+                    <li><i data-lucide="check" size="14"></i> 2 vCPU</li>
+                    <li><i data-lucide="check" size="14"></i> 4GB RAM</li>
+                    <li><i data-lucide="check" size="14"></i> Community Support</li>
+                </ul>
+                <a href="#" class="btn-glass" style="width: 100%; display:block;">Select</a>
+            </div>
+
+            <!-- Pro (Featured) -->
+            <div class="glass-card price-card featured">
+                <div class="tag-pill"
+                    style="margin-bottom: 1rem; border-color: var(--accent-glow); color: var(--accent-glow);">
+                    RECOMMENDED
+                </div>
+                <h3>Growth</h3>
+                <div class="price-amount">₹1,499</div>
+                <ul class="price-list">
+                    <li><i data-lucide="check" size="14" style="color: var(--accent-glow);"></i> 4 vCPU</li>
+                    <li><i data-lucide="check" size="14" style="color: var(--accent-glow);"></i> 16GB RAM</li>
+                    <li><i data-lucide="check" size="14" style="color: var(--accent-glow);"></i> Priority Support</li>
+                    <li><i data-lucide="check" size="14" style="color: var(--accent-glow);"></i> Free SSL</li>
+                </ul>
+                <a href="#" class="btn-glass"
+                    style="width: 100%; display:block; background: var(--accent-glow); color: #000;">Select</a>
+            </div>
+
+            <!-- Enterprise -->
+            <div class="glass-card price-card">
+                <h3>Scale</h3>
+                <div class="price-amount">Custom</div>
+                <ul class="price-list">
+                    <li><i data-lucide="check" size="14"></i> Unlimited vCPU</li>
+                    <li><i data-lucide="check" size="14"></i> Dedicated Cluster</li>
+                    <li><i data-lucide="check" size="14"></i> 24/7 Phone Support</li>
+                </ul>
+                <a href="#" class="btn-glass" style="width: 100%; display:block;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div style="opacity: 0.5;">
+            <i data-lucide="cloud" size="32" style="margin-bottom: 1rem;"></i>
+            <p>&copy; 2025 Aakash Cloud Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Simple floating animation for header elements
+        document.querySelector('.hero h1').animate([
+            { transform: 'translateY(0px)' },
+            { transform: 'translateY(-10px)' },
+            { transform: 'translateY(0px)' }
+        ], {
+            duration: 6000,
+            iterations: Infinity,
+            easing: 'ease-in-out'
+        });
+    </script>
+</body>
+
+</html>

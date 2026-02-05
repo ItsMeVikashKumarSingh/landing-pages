@@ -10,6 +10,9 @@ This repository contains multiple landing page templates designed for various us
 - **NexusFlow (index2.html):** SaaS product management and workflow tool.
 - **PixelForge (index3.html):** Creative design and AI art generation tool.
 - **Faiz Digital (index4.html & landing.html):** Portfolio and service showcase for a digital marketing expert.
+- **Aakash Cloud (index5.html):** Next-gen Indian cloud infrastructure with a **Neumorphic Light (Soft UI)** dashboard layout.
+-   **SkyGlass (index6.html):** Premium Glassmorphic Cloud Landing Page with animated gradient orbs and floating UI.
+-   **Garuda Gaming (index7.html):** Extra Ordinary Indian Esports Ecosystem with 3D interactions.
 - **Authentication Pages:** Modern Login and Sign Up pages with validation and animations.
 
 ## Features
