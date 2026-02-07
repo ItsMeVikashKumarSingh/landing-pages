@@ -62,11 +62,12 @@ No build process is required. These are static HTML pages.
 └── README.md           # Project documentation
 ```
 
-## Recent Updates (v0.1.1)
+## Recent Updates (v0.3.0)
 
-- **Icon Migration:** Replaced all Font Awesome icons with Lucide icons for better performance and aesthetics.
-- **Enhancements:** Added spin animations and improved responsiveness across all pages.
-- **Refactoring:** Cleaned up HTML structure and optimized script loading.
+- **Responsiveness:** Completed a comprehensive audit and fix of all landing pages for mobile.
+- **Accessibility:** Improved text contrast and touch target sizes across all pages.
+- **Design Refinements:** Redesigned `index2.html` and polished UI components for better mobile and light mode experiences.
+
 
 ## License
 

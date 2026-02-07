@@ -21,6 +21,7 @@
             --card-shadow: rgba(0, 0, 0, 0.1);
             --cursor-bg: #d97706;
             --cursor-border: #7c3aed;
+            --form-bg: rgba(255, 255, 255, 0.9);
         }
 
         body.dark-mode {
@@ -42,6 +43,7 @@
             --card-shadow: rgba(0, 0, 0, 0.8);
             --cursor-bg: #fcd34d;
             --cursor-border: #d8b4fe;
+            --form-bg: rgba(0, 0, 0, 0.8);
         }
 
         * {
@@ -160,9 +162,11 @@
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 0 1.5rem;
             position: relative;
             z-index: 1;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         .section-header {
@@ -258,8 +262,8 @@
         /* --- CARDS (3D TILT) --- */
         .cards-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
+            gap: 2rem;
             perspective: 1000px;
         }
 
@@ -455,7 +459,7 @@
         .terminal-form {
             max-width: 800px;
             margin: 0 auto;
-            background: rgba(0, 0, 0, 0.8);
+            background: var(--form-bg);
             border: 1px solid var(--neon-purple);
             padding: 3rem;
             font-family: 'monospace';
@@ -532,27 +536,77 @@
         }
 
         /* Responsive */
+
+        @media (max-width: 1024px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 2rem;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: clamp(2.5rem, 10vw, 4rem);
+                line-height: 1.1;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+                letter-spacing: 2px;
+                margin-bottom: 2.5rem;
+            }
+
+            .section-header {
+                margin: 4rem 0 2rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.75rem;
             }
 
             .cards-grid,
             .hex-grid {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .tilt-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .hex-item {
+                width: 100%;
+                max-width: 100%;
+                padding: 2rem 1.5rem;
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .terminal-form {
+                padding: 2rem 1.5rem;
             }
 
             .event-row {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
                 text-align: center;
                 border-left: none;
                 border-top: 4px solid var(--neon-purple);
+                padding: 2rem 1rem;
+            }
+
+            .event-date {
+                border-right: none;
+                padding-right: 0;
+                margin-bottom: 0.5rem;
             }
 
             .stats-ticker {
                 flex-direction: column;
-                gap: 2rem;
+                gap: 2.5rem;
+                padding: 3rem 1.5rem;
             }
 
             .cursor-dot,
@@ -566,6 +620,23 @@
 
             .hall-card {
                 min-width: 100%;
+                padding: 2rem 1.5rem;
+            }
+
+            .record-stat {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .btn-neon {
+                padding: 1rem 2rem;
+                width: 100%;
+                text-align: center;
             }
         }
 

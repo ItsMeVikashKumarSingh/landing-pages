@@ -1216,6 +1216,43 @@
         transform: rotate(360deg);
       }
     }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .pricing-grid,
+      .showcase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-content h1 {
+        font-size: 3rem;
+      }
+
+
+      footer {
+        padding: 4rem 1.5rem;
+      }
+
+      /* Fix Header Overlap */
+      header .btn-primary {
+        padding: 0.75rem;
+        font-size: 0;
+        gap: 0;
+      }
+
+      header .btn-primary i {
+        font-size: 1.2rem;
+        margin: 0;
+        /* Remove potential margins if any/for safety */
+      }
+    }
   </style>
 </head>
 

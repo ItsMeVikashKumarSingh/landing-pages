@@ -41,6 +41,8 @@
       background: var(--light);
       color: var(--text);
       overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
 
     h1,
@@ -144,6 +146,15 @@
 
     .nav-links a:hover::after {
       width: 100%;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 2rem;
+      cursor: pointer;
+      color: var(--text);
+      background: none;
+      border: none;
     }
 
     /* Buttons */
@@ -255,7 +266,8 @@
 
     .hero p {
       font-size: 1.4rem;
-      color: #64748B;
+      color: #475569;
+      /* Darkened from #64748B */
       line-height: 1.7;
       margin-bottom: 3rem;
       max-width: 600px;
@@ -291,6 +303,8 @@
     .hero-visual {
       position: relative;
       perspective: 1000px;
+      overflow: hidden;
+      /* Prevent floating shapes from causing overflow */
     }
 
     .card-3d {
@@ -397,6 +411,8 @@
     .container {
       max-width: 1400px;
       margin: 0 auto;
+      padding: 0 1.5rem;
+      width: 100%;
     }
 
     .section-header {
@@ -426,7 +442,8 @@
 
     .section-subtitle {
       font-size: 1.35rem;
-      color: #64748B;
+      color: #334155;
+      /* Darkened from #64748B */
       max-width: 700px;
       margin: 0 auto;
       line-height: 1.7;
@@ -439,7 +456,7 @@
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
       gap: 2rem;
     }
 
@@ -483,11 +500,13 @@
     .feature-card h3 {
       font-size: 1.75rem;
       margin-bottom: 1rem;
-      color: var(--text);
+      color: #0f172a;
+      /* Explicit dark color */
     }
 
     .feature-card p {
-      color: #64748B;
+      color: #475569;
+      /* Darkened from #64748B */
       line-height: 1.8;
       font-size: 1.05rem;
       flex: 1;
@@ -495,7 +514,8 @@
 
     /* Stats */
     .stats {
-      background: linear-gradient(135deg, var(--electric-purple), var(--hot-pink));
+      background: linear-gradient(135deg, #7E22CE, #DB2777);
+      /* Darkened gradient */
       color: white;
       border-radius: 40px;
       padding: 6rem 4rem;
@@ -504,8 +524,8 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4rem;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+      gap: 3rem;
     }
 
     .stat-item {
@@ -532,7 +552,7 @@
 
     .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 350px), 1fr));
       gap: 2.5rem;
     }
 
@@ -587,7 +607,8 @@
     }
 
     .testimonial-text {
-      color: #64748B;
+      color: #334155;
+      /* Darkened from #64748B */
       line-height: 1.8;
       font-size: 1.05rem;
     }
@@ -711,7 +732,8 @@
       gap: 1rem;
       border-bottom: 2px solid rgba(0, 0, 0, 0.05);
       font-size: 1.05rem;
-      color: #64748B;
+      color: #475569;
+      /* Darkened from #64748B */
     }
 
     .pricing-features li:last-child {
@@ -758,7 +780,8 @@
 
     /* CTA Section */
     .cta {
-      background: linear-gradient(135deg, var(--cyber-blue), var(--neon-green));
+      background: linear-gradient(135deg, #1D4ED8, #059669);
+      /* Darkened gradient */
       border-radius: 40px;
       padding: 6rem 4rem;
       color: white;
@@ -957,43 +980,85 @@
       transform: translateY(0);
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
+    /* Responsive Overlay Fixes */
+    @media (max-width: 1200px) {
+      header {
+        position: absolute;
+        /* Header scrolls away */
+        padding: 1rem 0;
+      }
+
+      nav {
+        padding: 0 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(248, 250, 252, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        border-bottom: 2px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
       .hero {
+        padding: 6rem 1.5rem 3rem;
         grid-template-columns: 1fr;
         text-align: center;
+        gap: 3rem;
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero h1 {
+        font-size: clamp(2.5rem, 8vw, 4rem);
+        line-height: 1.1;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        max-width: none;
+        /* Changed from 400px */
+        gap: 1rem;
+      }
+
+      .hero-buttons .btn {
+        width: 100%;
+        max-width: none;
       }
 
       .hero-visual {
-        margin-top: 3rem;
+        margin-top: 2rem;
+        width: 100%;
       }
 
-      .features-grid,
-      .testimonials-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
 
-      .stats-grid,
-      .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .footer-content {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .nav-links {
-        display: none;
-      }
-
-      section {
-        padding: 5rem 2rem;
-      }
-
-      .hero {
-        padding: 7rem 2rem 4rem;
+      .dashboard-preview {
+        grid-template-columns: 1fr;
       }
 
       .features-grid,
@@ -1002,21 +1067,81 @@
       .pricing-grid,
       .contact-form,
       .footer-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr !important;
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 100%;
       }
+
+
+      .feature-card,
+      .pricing-card,
+      .testimonial-card {
+        width: 100%;
+        padding: 1.5rem;
+        /* Reduced from 2rem 1.5rem */
+        min-height: auto;
+        box-sizing: border-box;
+      }
+
+      .pricing-features li {
+        padding: 0.75rem 0;
+        /* Reduced padding */
+        font-size: 0.95rem;
+      }
+
+      .price {
+        font-size: 3rem !important;
+        /* Scale down large price */
+      }
+
 
       .pricing-card.selected {
-        transform: scale(1.02);
+        transform: none;
+        border-width: 2px;
+      }
+
+      section {
+        padding: 4rem 0;
+      }
+
+      .stats {
+        padding: 3rem 1.5rem;
+        border-radius: 24px;
+        margin: 2rem 0;
+        box-shadow: none;
+        /* Removed heavy glow on mobile */
+      }
+
+      .form-group,
+      .form-group.full,
+      .contact-form button[type="submit"] {
+        grid-column: span 1 !important;
+      }
+
+      .btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+      }
+
+
+
+      .stat-number {
+        font-size: 3.5rem;
+      }
+
+      .stat-item {
+        padding: 1rem 0;
       }
     }
 
-    .lucide-spin {
-      animation: spin 1s linear infinite;
-    }
+    @media (max-width: 480px) {
+      .logo {
+        font-size: 1.75rem;
+      }
 
-    @keyframes spin {
-      100% {
-        transform: rotate(360deg);
+      .hero h1 {
+        font-size: 2.5rem;
       }
     }
   </style>
@@ -1030,16 +1155,21 @@
   <header>
     <nav>
       <a href="#" class="logo">Aurora</a>
-      <ul class="nav-links">
+      <ul class="nav-links" id="navLinks">
         <li><a href="#features">Features</a></li>
         <li><a href="#testimonials">Reviews</a></li>
         <li><a href="#pricing">Pricing</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <a href="#contact" class="btn btn-primary">
-        Start Free Trial
-        <i data-lucide="arrow-right"></i>
-      </a>
+      <div style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="#contact" class="btn btn-primary"
+          style="padding: 0.6rem 1rem; font-size: 0.85rem; border-radius: 8px;">
+          Try Free
+        </a>
+        <button class="menu-toggle" id="menuToggle" style="padding: 0.5rem;">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
     </nav>
   </header>
 
@@ -1331,7 +1461,7 @@
   <section id="contact">
     <div class="container">
       <div class="cta scroll-reveal">
-        <h2>Ready to Transform Your Marketing?</h2>
+        <h2 style="color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.2);">Ready to Transform Your Marketing?</h2>
         <p>Join 50,000+ businesses growing with Aurora. Start your 14-day free trial today.</p>
         <div class="cta-button-wrapper">
           <a href="#" class="btn btn-primary" style="background: white; color: var(--cyber-blue);">
@@ -1422,6 +1552,31 @@
   </footer>
 
   <script>
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      const icon = menuToggle.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.setAttribute('data-lucide', 'x');
+      } else {
+        icon.setAttribute('data-lucide', 'menu');
+      }
+      lucide.createIcons();
+    });
+
+    // Close menu when clicking links
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        icon.setAttribute('data-lucide', 'menu');
+        lucide.createIcons();
+      });
+    });
+
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

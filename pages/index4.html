@@ -1022,12 +1022,54 @@
         font-size: 1.5rem;
       }
 
+
       .contact-info {
-        padding: 2.5rem;
+        padding: 1.5rem;
       }
 
       .contact-form {
-        padding: 2.5rem;
+        padding: 1.5rem;
+      }
+
+      .contact-items {
+        gap: 1rem;
+      }
+
+      .contact-item {
+        padding: 1rem;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .contact-item-content {
+        min-width: 0;
+        /* Allow text truncate if needed */
+      }
+
+      .contact-item-content p {
+        word-break: break-all;
+        /* Prevent email overflow */
+      }
+
+      /* Fix Header Overlap */
+      header .btn-primary {
+        padding: 0.75rem;
+        font-size: 0;
+        gap: 0;
+      }
+
+      header .btn-primary i {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+
+      /* Footer Mobile Adjustments */
+      .footer-content {
+        gap: 2rem;
+      }
+
+      footer {
+        padding: 4rem 1.5rem 2rem;
       }
     }
 
@@ -1038,6 +1080,12 @@
     @keyframes spin {
       100% {
         transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
